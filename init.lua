@@ -71,10 +71,6 @@ require("packer").startup(function(use)
     requires = { {"nvim-lua/plenary.nvim"} }
    })
   
-  -- theprimeagen
-  --use("theprimeagen/harpoon") 
-  use("theprimeagen/refactoring.nvim")  
-
   -- Git
   use("lewis6991/gitsigns.nvim")
 
@@ -175,9 +171,6 @@ gitsigns.setup({})
 
 -- Setup LSP
 lsp.zls.setup({capabilities = capabilities})
-
--- Setup refactoring
-refactoring.setup({})
 
 -- Setup toggleterm
 toggleterm.setup({
