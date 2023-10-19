@@ -71,6 +71,10 @@ require("packer").startup(function(use)
     requires = { {"nvim-lua/plenary.nvim"} }
    })
   
+  -- theprimeagen
+  --use("theprimeagen/harpoon") 
+  use("theprimeagen/refactoring.nvim")  
+
   -- Git
   use("lewis6991/gitsigns.nvim")
 
@@ -87,13 +91,16 @@ local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local rose = require("rose-pine")
 local gitsigns = require("gitsigns")
+local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local toggleterm = require("toggleterm")
 local Terminal  = require("toggleterm.terminal").Terminal
+local refactoring = require('refactoring')
 
 -- Setup the theme
 rose.setup({
   disable_background = true,
+  disable_float_background = true,
 })
 
 -- Setup treesitter
@@ -107,7 +114,7 @@ treesitter.setup({
 luasnip_loader.lazy_load()
 luasnip.config.setup({})
 
--- Setup Autocompletion
+-- Setup cmp
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -149,22 +156,38 @@ cmp.setup({
   }
 })
 
+-- Setup telescope
+telescope.setup({
+  pickers = {
+    buffers = {
+      previewer = false,
+      theme = "dropdown",
+    },
+    git_files = {
+      previewer = false,
+      theme = "dropdown",
+    }
+  },
+})
+
 -- Setup Gitsigns 
 gitsigns.setup({})
 
 -- Setup LSP
 lsp.zls.setup({capabilities = capabilities})
 
+-- Setup refactoring
+refactoring.setup({})
+
 -- Setup toggleterm
 toggleterm.setup({
   float_opts = {
-      border = "curved",
+    border = "curved",
   }
 })
 
 local deno_term = Terminal:new({ cmd = "deno", hidden = true, direction = "float" })
 function deno_term_toggle() deno_term:toggle() end
-vim.keymap.set("n", "<leader>dn", "<cmd>lua deno_term_toggle()<CR>", {})
 
 -- My commands
 vim.api.nvim_create_user_command(
@@ -189,6 +212,7 @@ vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
 vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
+vim.keymap.set("n", "<leader>dn", "<cmd>lua deno_term_toggle()<CR>", {})
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-b>", "<Left>", {})
