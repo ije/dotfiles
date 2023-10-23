@@ -301,7 +301,8 @@ vim.keymap.set("i", "<C-e>", "<C-o>$", {})
 -- Key bindings (view)
 vim.keymap.set("v", "<C-a>", "^", {})
 vim.keymap.set("v", "<C-e>", "$", {})
-vim.keymap.set("v", "<Leader>sp", '"+y', {})
+vim.keymap.set("v", "<Leader>y", '"+y', {})
+vim.keymap.set("v", "<Leader>p", '"+p', {})
 
 -- Done
 print(":)")
