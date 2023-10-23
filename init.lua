@@ -8,6 +8,7 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.wrap = false
 vim.o.scrolloff = 8
+vim.o.showmode = false 
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
