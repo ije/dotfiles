@@ -1,9 +1,9 @@
 -- Options
 vim.o.nu = true
 -- vim.o.relativenumber = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.wrap = false
@@ -40,11 +40,9 @@ require("packer").startup(function(use)
 
   -- Theme
   use({
-    "rose-pine/neovim",
-    as = "rose-pine",
-    config = function()
-      vim.cmd.colorscheme("rose-pine")
-    end
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    config = function() vim.cmd.colorscheme("tokyonight") end
   })
 
   -- Syntax highligher
@@ -85,18 +83,30 @@ local luasnip = require("luasnip")
 local luasnip_loader = require("luasnip.loaders.from_vscode")
 local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local rose = require("rose-pine")
 local gitsigns = require("gitsigns")
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local toggleterm = require("toggleterm")
 local Terminal  = require("toggleterm.terminal").Terminal
-local refactoring = require('refactoring')
+local tokyonight = require("tokyonight")
 
 -- Setup the theme
-rose.setup({
-  disable_background = true,
-  disable_float_background = true,
+tokyonight.setup({
+  transparent = true,
+  on_highlights = function(hl, c)
+    hl.TelescopeNormal = {
+      bg = "NONE",
+      fg = c.fg_dark,
+    }
+    hl.TelescopeBorder = {
+      bg = "NONE",
+      fg = "#181824",  -- Same as termnal background color
+    }
+    hl.TelescopeSelection = {
+      bg = "NONE",
+      fg = "#eeeeee",
+    }
+  end,
 })
 
 -- Setup treesitter
@@ -158,10 +168,14 @@ telescope.setup({
     buffers = {
       previewer = false,
       theme = "dropdown",
+      prompt_title = '';
+      prompt_prefix = '';
     },
     git_files = {
       previewer = false,
       theme = "dropdown",
+      prompt_title = '';
+      prompt_prefix = '';
     }
   },
 })
@@ -175,11 +189,11 @@ lsp.zls.setup({capabilities = capabilities})
 -- Setup toggleterm
 toggleterm.setup({
   float_opts = {
-    border = "curved",
+    border = "solid",
   }
 })
 
-local deno_term = Terminal:new({ cmd = "deno", hidden = true, direction = "float" })
+local deno_term = Terminal:new({ cmd = "deno --version && echo -n 'CONTINUE ' && read", hidden = true, direction = "float" })
 function deno_term_toggle() deno_term:toggle() end
 
 -- My commands
