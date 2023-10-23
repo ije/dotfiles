@@ -64,11 +64,11 @@ require("packer").startup(function(use)
 
   -- Fuzzy finder
   use({
-    "nvim-telescope/telescope.nvim", 
+    "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
     requires = { {"nvim-lua/plenary.nvim"} }
    })
-  
+
   -- Git
   use("lewis6991/gitsigns.nvim")
 
@@ -77,21 +77,8 @@ require("packer").startup(function(use)
 
 end)
 
-local treesitter = require("nvim-treesitter.configs")
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-local luasnip_loader = require("luasnip.loaders.from_vscode")
-local lsp = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local gitsigns = require("gitsigns")
-local telescope = require("telescope")
-local builtin = require("telescope.builtin")
-local toggleterm = require("toggleterm")
-local Terminal  = require("toggleterm.terminal").Terminal
-local tokyonight = require("tokyonight")
-
 -- Setup the theme
-tokyonight.setup({
+require("tokyonight").setup({
   transparent = true,
   on_highlights = function(hl, c)
     hl.TelescopeNormal = {
@@ -109,18 +96,89 @@ tokyonight.setup({
   end,
 })
 
+-- Statueline
+local modes = {
+  ["n"] = "NORMAL",
+  ["no"] = "NORMAL",
+  ["v"] = "VISUAL",
+  ["V"] = "VISUAL LINE",
+  [""] = "VISUAL BLOCK",
+  ["s"] = "SELECT",
+  ["S"] = "SELECT LINE",
+  [""] = "SELECT BLOCK",
+  ["i"] = "INSERT",
+  ["ic"] = "INSERT",
+  ["R"] = "REPLACE",
+  ["Rv"] = "VISUAL REPLACE",
+  ["c"] = "COMMAND",
+  ["cv"] = "VIM EX",
+  ["ce"] = "EX",
+  ["r"] = "PROMPT",
+  ["rm"] = "MOAR",
+  ["r?"] = "CONFIRM",
+  ["!"] = "SHELL",
+  ["t"] = "TERMINAL",
+}
+local function mode()
+  local current_mode = vim.api.nvim_get_mode().mode
+  return string.format(" %s ", modes[current_mode]):upper()
+end
+local function filename()
+  local fname = vim.fn.expand "%:t"
+  if fname == "" then
+      return ""
+  end
+  return fname .. " "
+end
+local function filetype()
+  return string.format(" %s ", vim.bo.filetype):upper()
+end
+local function lineinfo()
+  if vim.bo.filetype == "alpha" then
+    return ""
+  end
+  return " %P %l:%c "
+end
+Statusline = {}
+Statusline.active = function()
+  return table.concat {
+    "%#Statusline#",
+    "%#StatusLineAccent#",
+    mode(),
+    "%#Normal# ",
+    filename(),
+    "%=%#StatusLineExtra#",
+    lineinfo(),
+  }
+end
+function Statusline.inactive()
+  return " %F"
+end
+function Statusline.short()
+  return "%#StatusLineNC#   NvimTree"
+end
+vim.api.nvim_exec([[
+  augroup Statusline
+  au!
+  au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
+  au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
+  au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline.short()
+  augroup END
+]], false)
+
 -- Setup treesitter
-treesitter.setup({
+require("nvim-treesitter.configs").setup({
   ensure_installed = { "lua", "javascript", "typescript", "tsx", "rust", "zig", "go" },
   auto_install = false,
   highlight = { enable = true  },
 })
 
 -- Setup luasnip for cmp
-luasnip_loader.lazy_load()
-luasnip.config.setup({})
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip").config.setup({})
 
 -- Setup cmp
+local cmp = require("cmp")
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -163,37 +221,46 @@ cmp.setup({
 })
 
 -- Setup telescope
-telescope.setup({
+require("telescope").setup({
   pickers = {
     buffers = {
       previewer = false,
       theme = "dropdown",
-      prompt_title = '';
-      prompt_prefix = '';
+      prompt_title = "";
+      prompt_prefix = "";
     },
     git_files = {
       previewer = false,
       theme = "dropdown",
-      prompt_title = '';
-      prompt_prefix = '';
+      prompt_title = "";
+      prompt_prefix = "";
     }
   },
 })
 
--- Setup Gitsigns 
-gitsigns.setup({})
+-- Setup Gitsigns
+require("gitsigns").setup({})
 
 -- Setup LSP
+local lsp = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lsp.zls.setup({capabilities = capabilities})
+lsp.denols.setup({capabilities = capabilities})
 
 -- Setup toggleterm
-toggleterm.setup({
+require("toggleterm").setup({
   float_opts = {
     border = "solid",
   }
 })
 
-local deno_term = Terminal:new({ cmd = "deno --version && echo -n 'CONTINUE ' && read", hidden = true, direction = "float" })
+local Terminal  = require("toggleterm.terminal").Terminal
+local deno_term = Terminal:new({
+  cmd = "deno",
+  hidden = true,
+  -- close_on_exit = false,
+  direction = "float",
+})
 function deno_term_toggle() deno_term:toggle() end
 
 -- My commands
@@ -211,13 +278,13 @@ vim.api.nvim_create_user_command(
 -- Key bindings (normal)
 vim.keymap.set("n", "<C-b>", "<Left>", {})
 vim.keymap.set("n", "<C-f>", "<Right>", {})
-vim.keymap.set("n", "<C-a>", "0", {})
+vim.keymap.set("n", "<C-a>", "^", {})
 vim.keymap.set("n", "<C-e>", "$", {})
-vim.keymap.set("n", "<leader>ff", builtin.git_files, {})
-vim.keymap.set("n", "<leader>t", builtin.buffers, {})
+vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files, {})
+vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers, {})
 vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, {})
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
+vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition, {})
+vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration, {})
 vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
 vim.keymap.set("n", "<leader>dn", "<cmd>lua deno_term_toggle()<CR>", {})
 
@@ -226,8 +293,9 @@ vim.keymap.set("i", "<C-b>", "<Left>", {})
 vim.keymap.set("i", "<C-f>", "<Right>", {})
 vim.keymap.set("i", "<C-p>", "<Up>", {})
 vim.keymap.set("i", "<C-n>", "<Down>", {})
-vim.keymap.set("i", "<C-d>", "<C-o>l<C-h>", {})
-vim.keymap.set("i", "<C-a>", "<C-o>0", {})
+vim.keymap.set("i", "<C-d>", "<C-o>x", {})
+vim.keymap.set("i", "<C-w>", "<C-o>diw", {})
+vim.keymap.set("i", "<C-a>", "<C-o>^", {})
 vim.keymap.set("i", "<C-e>", "<C-o>$", {})
 
 -- Done
