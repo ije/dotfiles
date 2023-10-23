@@ -277,10 +277,9 @@ vim.api.nvim_create_user_command(
 )
 
 -- Key bindings (normal)
-vim.keymap.set("n", "<C-b>", "<Left>", {})
-vim.keymap.set("n", "<C-f>", "<Right>", {})
 vim.keymap.set("n", "<C-a>", "^", {})
 vim.keymap.set("n", "<C-e>", "$", {})
+vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files, {})
 vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers, {})
 vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, {})
@@ -298,6 +297,11 @@ vim.keymap.set("i", "<C-d>", "<C-o>x", {})
 vim.keymap.set("i", "<C-w>", "<C-o>diw", {})
 vim.keymap.set("i", "<C-a>", "<C-o>^", {})
 vim.keymap.set("i", "<C-e>", "<C-o>$", {})
+
+-- Key bindings (view)
+vim.keymap.set("v", "<C-a>", "^", {})
+vim.keymap.set("v", "<C-e>", "$", {})
+vim.keymap.set("v", "<Leader>sp", '"+y', {})
 
 -- Done
 print(":)")
