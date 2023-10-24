@@ -1,4 +1,4 @@
--- Options
+Options
 vim.o.nu = true
 -- vim.o.relativenumber = true
 vim.o.tabstop = 2
@@ -251,18 +251,18 @@ lsp.denols.setup({capabilities = capabilities})
 -- Setup toggleterm
 require("toggleterm").setup({
   float_opts = {
-    border = "solid",
+    border = "rounded",
   }
 })
 
 local Terminal  = require("toggleterm.terminal").Terminal
-local deno_term = Terminal:new({
-  cmd = "deno",
+local lg_term = Terminal:new({
+  cmd = "lazygit",
   hidden = true,
   -- close_on_exit = false,
   direction = "float",
 })
-function deno_term_toggle() deno_term:toggle() end
+function lg_term_toggle() lg_term:toggle() end
 
 -- My commands
 vim.api.nvim_create_user_command(
@@ -270,13 +270,10 @@ vim.api.nvim_create_user_command(
   "e ~/.config/nvim/init.lua",
   {bang = true, desc = "Open init.lua Neovim config"}
 )
-vim.api.nvim_create_user_command(
-  "Zt",
-  "!zig test %",
-  {bang = true, desc = "Run zig test for current file"}
-)
 
 -- Key bindings (normal)
+vim.keymap.set("n", "<C-b>", "<Left>", {})
+vim.keymap.set("n", "<C-f>", "<Right>", {})
 vim.keymap.set("n", "<C-a>", "^", {})
 vim.keymap.set("n", "<C-e>", "$", {})
 vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
@@ -286,7 +283,8 @@ vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration, {})
 vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
-vim.keymap.set("n", "<leader>dn", "<cmd>lua deno_term_toggle()<CR>", {})
+vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>", {})
+vim.keymap.set("n", "<leader>c", ":", {})
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-b>", "<Left>", {})
@@ -297,6 +295,7 @@ vim.keymap.set("i", "<C-d>", "<C-o>x", {})
 vim.keymap.set("i", "<C-w>", "<C-o>diw", {})
 vim.keymap.set("i", "<C-a>", "<C-o>^", {})
 vim.keymap.set("i", "<C-e>", "<C-o>$", {})
+vim.keymap.set("i", "<C-q>", "<C-[>", {})
 
 -- Key bindings (view)
 vim.keymap.set("v", "<C-a>", "^", {})
