@@ -319,9 +319,11 @@ vim.api.nvim_create_user_command(
   {bang = true, desc = "Open init.lua Neovim config"}
 )
 
+-- Key bindings
+vim.keymap.set({"n", "i", "v"}, "<C-b>", "<Left>", {})
+vim.keymap.set({"n", "i", "v"}, "<C-f>", "<Right>", {})
+
 -- Key bindings (normal)
-vim.keymap.set("n", "<C-b>", "<Left>", {})
-vim.keymap.set("n", "<C-f>", "<Right>", {})
 vim.keymap.set("n", "<C-a>", "^", {})
 vim.keymap.set("n", "<C-e>", "$", {})
 vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
@@ -335,8 +337,6 @@ vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>", {})
 vim.keymap.set("n", "<leader>c", ":", {})
 
 -- Key bindings (insert)
-vim.keymap.set("i", "<C-b>", "<Left>", {})
-vim.keymap.set("i", "<C-f>", "<Right>", {})
 vim.keymap.set("i", "<C-p>", "<Up>", {})
 vim.keymap.set("i", "<C-n>", "<Down>", {})
 vim.keymap.set("i", "<C-d>", "<C-o>x", {})
