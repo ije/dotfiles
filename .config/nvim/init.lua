@@ -101,14 +101,14 @@ require("catppuccin").setup({
    },
    custom_highlights = function(colors)
      local bg = "#101010"
-     local gray0 = "#454545"
-     local gray = "#666666"
-     local text = "#dddddd"
-     local yellow = "#f6c99f"
+     local gray = "#757575"
+     local text = colors.text
+     local yellow = colors.yellow 
      return {
        TelescopeNormal = { fg = gray },
        TelescopeSelection = { fg = text },
        TelescopeBorder = { fg = bg },
+       StatusLine = { fg = "#cccccc", bg = "#232325" },
        -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
        ['@punctuation'] = { fg = gray0 },
        ['@punctuation.bracket'] = { fg = gray0 },
@@ -150,10 +150,10 @@ local modes = {
   ["n"] = "normal",
   ["no"] = "normal",
   ["v"] = "visual",
-  ["v"] = "visual line",
+  ["V"] = "visual line",
   [""] = "visual block",
   ["s"] = "select",
-  ["s"] = "select line",
+  ["S"] = "select line",
   [""] = "select block",
   ["i"] = "insert",
   ["ic"] = "insert",
@@ -194,7 +194,7 @@ Statusline.active = function()
     "%#statusline#",
     "%#statuslineaccent#",
     mode(),
-    "%#normal# ",
+    "%#@comment# ",
     filename(),
     "%=%#statuslineextra#",
     lineinfo(),
@@ -299,7 +299,7 @@ lsp.denols.setup({capabilities = capabilities})
 -- Setup toggleterm
 require("toggleterm").setup({
   float_opts = {
-    border = "rounded",
+    border = "none",
   }
 })
 
