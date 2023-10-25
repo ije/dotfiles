@@ -1,6 +1,6 @@
-# nvim
+# dotfiles
 
-Personal terminal configuration
+Personal terminal configuration.
 
 - alacritty: [alacritty.yml](./.config/alacritty/alacritty.yml)
 - neovim: [init.lua](./.config/nvim/init.lua).
