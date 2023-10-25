@@ -1,4 +1,4 @@
-Options
+-- Options
 vim.o.nu = true
 -- vim.o.relativenumber = true
 vim.o.tabstop = 2
@@ -41,9 +41,10 @@ require("packer").startup(function(use)
 
   -- Theme
   use({
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    as = "catppuccin",
     priority = 1000,
-    config = function() vim.cmd.colorscheme("tokyonight") end
+    config = function() vim.cmd.colorscheme("catppuccin") end
   })
 
   -- Syntax highligher
@@ -54,6 +55,7 @@ require("packer").startup(function(use)
       ts_update()
     end
   })
+  use("nvim-treesitter/playground")
 
   -- LSP Support
   use("neovim/nvim-lspconfig")
@@ -79,46 +81,92 @@ require("packer").startup(function(use)
 end)
 
 -- Setup the theme
-require("tokyonight").setup({
-  transparent = true,
-  on_highlights = function(hl, c)
-    hl.TelescopeNormal = {
-      bg = "NONE",
-      fg = c.fg_dark,
-    }
-    hl.TelescopeBorder = {
-      bg = "NONE",
-      fg = "#181824",  -- Same as termnal background color
-    }
-    hl.TelescopeSelection = {
-      bg = "NONE",
-      fg = "#eeeeee",
-    }
-  end,
+require("catppuccin").setup({
+   transparent_background = true,
+   color_overrides = {
+		 all = {
+       text = "#dddddd",
+       lavender = "#dddddd",
+       blue = "#B1FCE5",
+       sky = "#B1FCE5",
+       sapphire = "#B1FCE5",
+       teal = "#B1FCE5",
+       yellow = "#F6C99F",
+       peach = "#F6C99F",
+       rosewater = "#F6C99F",
+       mauve = "#F6C99F",
+       maroon = "#F6C99F",
+       pink = "#F6C99F",
+     },
+   },
+   custom_highlights = function(colors)
+     local bg = "#101010"
+     local gray0 = "#454545"
+     local gray = "#666666"
+     local text = "#dddddd"
+     local yellow = "#f6c99f"
+     return {
+       TelescopeNormal = { fg = gray },
+       TelescopeSelection = { fg = text },
+       TelescopeBorder = { fg = bg },
+       -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
+       ['@punctuation'] = { fg = gray0 },
+       ['@punctuation.bracket'] = { fg = gray0 },
+       ['@punctuation.delimiter'] = { fg = gray0 },
+       ['@punctuation.special'] = { fg = gray0 },
+       ['@comment'] = { fg = gray },
+       ['@comment.documentation'] = { fg = "#757575" },
+       ['@keyword'] = { fg = gray },
+       ['@keyword.function'] = { fg = gray },
+       ['@keyword.coroutine'] = { fg = gray },
+       ['@keyword.operator'] = { fg = gray },
+       ['@keyword.return'] = { fg = gray },
+       ['@include'] = { fg = gray },
+       ['@operator'] = { fg = gray },
+       ['@label'] = { fg = gray },
+       ['@repeat'] = { fg = gray },
+       ['@conditional'] = { fg = gray },
+       ['@conditional.ternary'] = { fg = gray },
+       ['@exception'] = { fg = gray },
+       ['@variable.builtin'] = { fg = yellow },
+       ['@attribute'] = { fg = text },
+       ['@function'] = { fg = text },
+       ['@function.call'] = { fg = text },
+       ['@variable'] = { fg = text },
+       ['@constant'] = { fg = text },
+       ['@constant.builtin'] = { fg = yellow },
+       ['@field'] = { fg = text },
+       ['@property'] = { fg = text },
+       ['@method'] = { fg = text },
+       ['@parameter'] = { fg = text, style = { "italic" } },
+       ['@type'] = { fg = yellow, style = { "italic" } },
+       ['@type.builtin'] = { fg = yellow, style = { "italic" } },
+     }
+    end 
 })
 
--- Statueline
+-- statueline
 local modes = {
-  ["n"] = "NORMAL",
-  ["no"] = "NORMAL",
-  ["v"] = "VISUAL",
-  ["V"] = "VISUAL LINE",
-  [""] = "VISUAL BLOCK",
-  ["s"] = "SELECT",
-  ["S"] = "SELECT LINE",
-  [""] = "SELECT BLOCK",
-  ["i"] = "INSERT",
-  ["ic"] = "INSERT",
-  ["R"] = "REPLACE",
-  ["Rv"] = "VISUAL REPLACE",
-  ["c"] = "COMMAND",
-  ["cv"] = "VIM EX",
-  ["ce"] = "EX",
-  ["r"] = "PROMPT",
-  ["rm"] = "MOAR",
-  ["r?"] = "CONFIRM",
-  ["!"] = "SHELL",
-  ["t"] = "TERMINAL",
+  ["n"] = "normal",
+  ["no"] = "normal",
+  ["v"] = "visual",
+  ["v"] = "visual line",
+  [""] = "visual block",
+  ["s"] = "select",
+  ["s"] = "select line",
+  [""] = "select block",
+  ["i"] = "insert",
+  ["ic"] = "insert",
+  ["r"] = "replace",
+  ["rv"] = "visual replace",
+  ["c"] = "command",
+  ["cv"] = "vim ex",
+  ["ce"] = "ex",
+  ["r"] = "prompt",
+  ["rm"] = "moar",
+  ["r?"] = "confirm",
+  ["!"] = "shell",
+  ["t"] = "terminal",
 }
 local function mode()
   local current_mode = vim.api.nvim_get_mode().mode
@@ -138,22 +186,22 @@ local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %P %l:%c "
+  return " %p %l:%c "
 end
 Statusline = {}
 Statusline.active = function()
   return table.concat {
-    "%#Statusline#",
-    "%#StatusLineAccent#",
+    "%#statusline#",
+    "%#statuslineaccent#",
     mode(),
-    "%#Normal# ",
+    "%#normal# ",
     filename(),
-    "%=%#StatusLineExtra#",
+    "%=%#statuslineextra#",
     lineinfo(),
   }
 end
 function Statusline.inactive()
-  return " %F"
+  return " %f"
 end
 function Statusline.short()
   return "%#StatusLineNC#   NvimTree"
@@ -171,7 +219,7 @@ vim.api.nvim_exec([[
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "lua", "javascript", "typescript", "tsx", "rust", "zig", "go" },
   auto_install = false,
-  highlight = { enable = true  },
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
 })
 
 -- Setup luasnip for cmp
