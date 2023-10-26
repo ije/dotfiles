@@ -1,22 +1,17 @@
 -- Options
 vim.o.nu = true
--- vim.o.relativenumber = true
+vim.o.showmode = false 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
-vim.o.smartindent = true
 vim.o.wrap = false
-vim.o.scrolloff = 8
-vim.o.showmode = false 
 vim.o.swapfile = false
 vim.o.backup = false
-vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 -- Set <space> as the leader key
--- See `:help mapleader`
--- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -80,7 +75,7 @@ require("packer").startup(function(use)
 
 end)
 
--- Setup the theme
+-- Setup the theme colors
 require("catppuccin").setup({
    transparent_background = true,
    color_overrides = {
@@ -146,7 +141,7 @@ require("catppuccin").setup({
     end 
 })
 
--- statueline
+-- Setup the Statueline
 local modes = {
   ["n"] = "normal",
   ["no"] = "normal",
@@ -187,7 +182,7 @@ local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %p %l:%c "
+  return " %p%% %l:%c "
 end
 Statusline = {}
 Statusline.active = function()
@@ -297,13 +292,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lsp.zls.setup({capabilities = capabilities})
 lsp.denols.setup({capabilities = capabilities})
 
--- Setup toggleterm
-require("toggleterm").setup({
-  float_opts = {
-    border = "none",
-  }
-})
-
+-- Setup terminals
 local Terminal  = require("toggleterm.terminal").Terminal
 local lg_term = Terminal:new({
   cmd = "lazygit",
@@ -312,6 +301,9 @@ local lg_term = Terminal:new({
   direction = "float",
 })
 function lg_term_toggle() lg_term:toggle() end
+require("toggleterm").setup({
+  float_opts = { border = "none" }
+})
 
 -- My commands
 vim.api.nvim_create_user_command(
@@ -321,32 +313,37 @@ vim.api.nvim_create_user_command(
 )
 
 -- Key bindings
-vim.keymap.set({"n", "i", "v"}, "<C-b>", "<Left>", {})
-vim.keymap.set({"n", "i", "v"}, "<C-f>", "<Right>", {})
-vim.keymap.set({"n", "i", "v"}, "<C-a>", "^", {})
-vim.keymap.set({"n", "i", "v"}, "<C-e>", "$", {})
+vim.keymap.set({"n", "i", "v"}, "<C-b>", "<Left>")
+vim.keymap.set({"n", "i", "v"}, "<C-f>", "<Right>")
+vim.keymap.set({"n", "v"}, "<C-a>", "^")
+vim.keymap.set({"n", "v"}, "<C-e>", "$")
 
 -- Key bindings (normal)
-vim.keymap.set("n", "<leader>p", ":", {})
-vim.keymap.set("n", "<leader>s", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files, {})
-vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers, {})
-vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover, {})
-vim.keymap.set("n", "<Leader>d", vim.lsp.buf.definition, {})
-vim.keymap.set("n", "<Leader>D", vim.lsp.buf.declaration, {})
-vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>", {})
-vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
+vim.keymap.set("n", "<leader>p", ":")
+vim.keymap.set("n", "<leader>s", "<cmd>lua vim.api.nvim_command('write')<CR>")
+vim.keymap.set("n", "<leader>a", "[[v]]")
+vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files)
+vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers)
+vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
+vim.keymap.set("n", "<Leader>d", vim.lsp.buf.definition)
+vim.keymap.set("n", "<Leader>D", vim.lsp.buf.declaration)
+vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>")
+vim.keymap.set("n", "<leader>zt", vim.cmd.Zt)
+vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Key bindings (insert)
-vim.keymap.set("i", "<C-p>", "<Up>", {})
-vim.keymap.set("i", "<C-n>", "<Down>", {})
-vim.keymap.set("i", "<C-d>", "<C-o>x", {})
-vim.keymap.set("i", "<C-w>", "<C-o>diw", {})
-vim.keymap.set("i", "<C-c>", "<C-[>", {})
+vim.keymap.set("i", "<C-p>", "<Up>")
+vim.keymap.set("i", "<C-n>", "<Down>")
+vim.keymap.set("i", "<C-c>", "<C-[>")
+vim.keymap.set("i", "<C-d>", "<C-o>x")
+vim.keymap.set("i", "<C-w>", "<C-o>diw")
+vim.keymap.set("i", "<C-a>", "<C-o>^")
+vim.keymap.set("i", "<C-e>", "<C-o>$")
 
 -- Key bindings (view)
-vim.keymap.set("v", "<Leader>y", '"+y', {})
-vim.keymap.set("v", "<Leader>p", '"+p', {})
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<Leader>y", [["+y]])
 
 -- Done
 print(":)")
