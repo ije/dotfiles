@@ -218,7 +218,7 @@ vim.api.nvim_exec([[
 
 -- Setup treesitter
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "javascript", "typescript", "tsx", "rust", "zig", "go" },
+  ensure_installed = { "lua", "markdown", "html", "css", "json", "javascript", "typescript", "tsx", "go", "rust", "zig" },
   auto_install = false,
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 })
@@ -323,32 +323,28 @@ vim.api.nvim_create_user_command(
 -- Key bindings
 vim.keymap.set({"n", "i", "v"}, "<C-b>", "<Left>", {})
 vim.keymap.set({"n", "i", "v"}, "<C-f>", "<Right>", {})
+vim.keymap.set({"n", "i", "v"}, "<C-a>", "^", {})
+vim.keymap.set({"n", "i", "v"}, "<C-e>", "$", {})
 
 -- Key bindings (normal)
-vim.keymap.set("n", "<C-a>", "^", {})
-vim.keymap.set("n", "<C-e>", "$", {})
-vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
+vim.keymap.set("n", "<leader>p", ":", {})
+vim.keymap.set("n", "<leader>s", "<cmd>lua vim.api.nvim_command('write')<CR>", {})
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files, {})
 vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers, {})
-vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, {})
-vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition, {})
-vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration, {})
-vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
+vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover, {})
+vim.keymap.set("n", "<Leader>d", vim.lsp.buf.definition, {})
+vim.keymap.set("n", "<Leader>D", vim.lsp.buf.declaration, {})
 vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>", {})
-vim.keymap.set("n", "<leader>c", ":", {})
+vim.keymap.set("n", "<leader>zt", vim.cmd.Zt, {})
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-p>", "<Up>", {})
 vim.keymap.set("i", "<C-n>", "<Down>", {})
 vim.keymap.set("i", "<C-d>", "<C-o>x", {})
 vim.keymap.set("i", "<C-w>", "<C-o>diw", {})
-vim.keymap.set("i", "<C-a>", "<C-o>^", {})
-vim.keymap.set("i", "<C-e>", "<C-o>$", {})
-vim.keymap.set("i", "<C-q>", "<C-[>", {})
+vim.keymap.set("i", "<C-c>", "<C-[>", {})
 
 -- Key bindings (view)
-vim.keymap.set("v", "<C-a>", "^", {})
-vim.keymap.set("v", "<C-e>", "$", {})
 vim.keymap.set("v", "<Leader>y", '"+y', {})
 vim.keymap.set("v", "<Leader>p", '"+p', {})
 
