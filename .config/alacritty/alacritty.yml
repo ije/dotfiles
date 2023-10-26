@@ -31,7 +31,7 @@ window:
   # least `2`, while using a value of `0` for columns and lines will fall back
   # to the window manager's recommended size
   dimensions:
-    columns: 100
+    columns: 120
     lines: 20
 
   # Window position (changes require restart)
@@ -47,7 +47,7 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 6
+    x: 5
     y: 3
 
   # Spread additional padding evenly around the terminal content.
@@ -177,14 +177,14 @@ font:
   # spacing.
   offset:
     x: 0
-    y: 8
+    y: 6
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
   # right, increasing `y` moves the glyph upward.
-  #glyph_offset:
-  #  x: 0
-  #  y: 0
+  glyph_offset:
+    x: 0
+    y: 6
 
   # Use built-in font for box drawing characters.
   #
@@ -194,7 +194,7 @@ font:
   #builtin_box_drawing: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night)
 colors:
@@ -278,9 +278,9 @@ colors:
   # Color used for the footer bar on the bottom, used by search regex input,
   # hyperlink URI preview, etc.
   #
-  #footer_bar:
-  #  background: '#c5c8c6'
-  #  foreground: '#1d1f21'
+  footer_bar:
+    background: '#000000'
+    foreground: '#cccccc'
 
   # Selection colors
   #
@@ -294,14 +294,14 @@ colors:
 
   # Normal colors
   normal:
-    black: '#696969'
+    black: '#757575'
     red: '#D53E33'
     green: '#1DC121'
     yellow: '#C7C329'
     blue: '#0A2FC4'
     magenta: '#C839C5'
     cyan: '#20C5C6'
-    white: '#C7C7C7'
+    white: '#CCCCCC'
 
   # Bright colors
   #bright:
