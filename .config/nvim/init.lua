@@ -101,7 +101,8 @@ require("catppuccin").setup({
    },
    custom_highlights = function(colors)
      local bg = "#101010"
-     local gray = "#757575"
+     local gray = "#777777"
+     local gray0 = "#777A7F"
      local text = colors.text
      local yellow = colors.yellow 
      return {
