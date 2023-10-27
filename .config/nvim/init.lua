@@ -218,12 +218,11 @@ require("nvim-treesitter.configs").setup({
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 })
 
--- Setup luasnip for cmp
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip").config.setup({})
-
 -- Setup cmp
 local cmp = require("cmp")
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
+luasnip.config.setup({})
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -320,7 +319,7 @@ vim.keymap.set({"n", "v"}, "<C-e>", "$")
 
 -- Key bindings (normal)
 vim.keymap.set("n", "<leader>p", ":")
-vim.keymap.set("n", "<leader>s", "<cmd>lua vim.api.nvim_command('write')<CR>")
+vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>")
 vim.keymap.set("n", "<leader>a", "[[v]]")
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files)
 vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers)
