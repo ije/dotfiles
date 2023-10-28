@@ -78,6 +78,9 @@ require("packer").startup(function(use)
   -- Harpoon
   use("theprimeagen/harpoon")
 
+  -- Github copilot
+  use("github/copilot.vim")
+
 end)
 
 -- Setup the theme colors
@@ -297,7 +300,7 @@ lsp.zls.setup({capabilities = capabilities})
 lsp.denols.setup({capabilities = capabilities})
 
 -- Setup terminals
-require("toggleterm").setup({size = vim.o.columns * 0.3})
+require("toggleterm").setup({size = vim.o.columns * 0.4})
 
 local Terminal  = require("toggleterm.terminal").Terminal
 local lg_term = Terminal:new({
@@ -327,7 +330,6 @@ local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 local builtin = require("telescope.builtin")
 local gs = require("gitsigns")
-vim.keymap.set("n", ";;", ":")
 vim.keymap.set("n", "<C-c>", ":q<Enter>")
 vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>")
 vim.keymap.set("n", "<leader>a", "[[v]]")
@@ -335,7 +337,7 @@ vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>d", "yyp")
 vim.keymap.set("n", "<leader><Enter>", "O<Esc>")
 vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>")
-vim.keymap.set("n", "<leader>zt", "<cmd>TermExec cmd='zig test %' direction='vertical'<CR>")
+vim.keymap.set("n", "<C-t>", "<cmd>TermExec cmd='zig test %' direction='vertical'<CR>")
 vim.keymap.set("n", "<leader>n", gs.next_hunk)
 vim.keymap.set("n", "<leader>ff", builtin.git_files)
 vim.keymap.set("n", "<leader>t", builtin.buffers)
