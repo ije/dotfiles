@@ -73,6 +73,9 @@ require("packer").startup(function(use)
   -- Term
   use("akinsho/toggleterm.nvim")
 
+  -- Harpoon
+  use("theprimeagen/harpoon")
+
 end)
 
 -- Setup the theme colors
@@ -96,7 +99,7 @@ require("catppuccin").setup({
    },
    custom_highlights = function(colors)
      local bg = "#101010"
-     local gray = "#777777"
+     local gray = "#999999"
      local gray0 = "#777A7F"
      local text = colors.text
      local yellow = colors.yellow 
@@ -314,21 +317,34 @@ vim.api.nvim_create_user_command(
 -- Key bindings
 vim.keymap.set({"n", "i", "v"}, "<C-b>", "<Left>")
 vim.keymap.set({"n", "i", "v"}, "<C-f>", "<Right>")
+vim.keymap.set({"n", "v"}, "<C-u>", "10k")
+vim.keymap.set({"n", "v"}, "<C-d>", "10j")
 vim.keymap.set({"n", "v"}, "<C-a>", "^")
 vim.keymap.set({"n", "v"}, "<C-e>", "$")
 
 -- Key bindings (normal)
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>p", ":")
 vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>")
 vim.keymap.set("n", "<leader>a", "[[v]]")
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files)
-vim.keymap.set("n", "<leader>t", require("telescope.builtin").buffers)
+vim.keymap.set("n", "<leader>ff", builtin.git_files)
+vim.keymap.set("n", "<leader>t", builtin.buffers)
 vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
-vim.keymap.set("n", "<Leader>d", vim.lsp.buf.definition)
-vim.keymap.set("n", "<Leader>D", vim.lsp.buf.declaration)
+vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition)
+vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration)
 vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>")
 vim.keymap.set("n", "<leader>zt", vim.cmd.Zt)
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>d", "yyp")
+vim.keymap.set("n", "<leader><Enter>", "O<Esc>")
+vim.keymap.set("n", "<leader>m", mark.add_file)
+vim.keymap.set("n", "<leader>e", ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>j", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<leader>k", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<leader>l", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<leader>;", function() ui.nav_file(4) end)
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-p>", "<Up>")
