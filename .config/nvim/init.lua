@@ -297,17 +297,15 @@ lsp.zls.setup({capabilities = capabilities})
 lsp.denols.setup({capabilities = capabilities})
 
 -- Setup terminals
+require("toggleterm").setup({size = vim.o.columns * 0.3})
+
 local Terminal  = require("toggleterm.terminal").Terminal
 local lg_term = Terminal:new({
   cmd = "lazygit",
   hidden = true,
-  -- close_on_exit = false,
   direction = "float",
 })
 function lg_term_toggle() lg_term:toggle() end
-require("toggleterm").setup({
-  float_opts = { border = "none" }
-})
 
 -- My commands
 vim.api.nvim_create_user_command(
@@ -329,13 +327,15 @@ local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 local builtin = require("telescope.builtin")
 local gs = require("gitsigns")
-vim.keymap.set("n", "<leader>p", ":")
+vim.keymap.set("n", ";;", ":")
+vim.keymap.set("n", "<C-c>", ":q<Enter>")
 vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>")
 vim.keymap.set("n", "<leader>a", "[[v]]")
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>d", "yyp")
 vim.keymap.set("n", "<leader><Enter>", "O<Esc>")
 vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>")
+vim.keymap.set("n", "<leader>zt", "<cmd>TermExec cmd='zig test %' direction='vertical'<CR>")
 vim.keymap.set("n", "<leader>n", gs.next_hunk)
 vim.keymap.set("n", "<leader>ff", builtin.git_files)
 vim.keymap.set("n", "<leader>t", builtin.buffers)
@@ -348,12 +348,11 @@ vim.keymap.set("n", "<leader>j", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>k", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>l", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<leader>;", function() ui.nav_file(4) end)
-vim.keymap.set("n", "<leader>zt", vim.cmd.Zt)
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-p>", "<Up>")
 vim.keymap.set("i", "<C-n>", "<Down>")
-vim.keymap.set("i", "<C-c>", "<C-[>")
+vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("i", "<C-d>", "<C-o>x")
 vim.keymap.set("i", "<C-w>", "<C-o>diw")
 vim.keymap.set("i", "<C-a>", "<C-o>^")
@@ -364,6 +363,8 @@ vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 -- Key bindings (view)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<Leader>y", [["+y]])
 
 -- Done
