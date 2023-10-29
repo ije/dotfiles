@@ -324,6 +324,8 @@ vim.keymap.set({"n", "v"}, "<C-u>", "10k")
 vim.keymap.set({"n", "v"}, "<C-d>", "10j")
 vim.keymap.set({"n", "v"}, "<C-a>", "^")
 vim.keymap.set({"n", "v"}, "<C-e>", "$")
+vim.keymap.set({"n", "v"}, "<Leader>d", "\"_d")
+vim.keymap.set({"n", "v"}, "<Leader>p", "\"_dP")
 
 -- Key bindings (normal)
 local mark = require("harpoon.mark")
@@ -365,8 +367,8 @@ vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 -- Key bindings (view)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<Leader>y", [["+y]])
 
 -- Done
