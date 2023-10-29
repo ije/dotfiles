@@ -1,4 +1,6 @@
 -- Options
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 vim.o.nu = true
 vim.o.showmode = false 
 vim.o.tabstop = 2
@@ -93,6 +95,7 @@ require("catppuccin").setup({
      all = {
        text = "#dddddd",
        lavender = "#dddddd",
+       surface1 = "#454545",
        blue = "#B1FCE5",
        sky = "#B1FCE5",
        sapphire = "#B1FCE5",
@@ -108,46 +111,47 @@ require("catppuccin").setup({
    custom_highlights = function(colors)
      local bg = "#101010"
      local gray = "#999999"
-     local gray0 = "#888A8F"
+     local gray0 = "#757575"
      local text = colors.text
      local yellow = colors.yellow 
      return {
        TelescopeNormal = { fg = gray },
        TelescopeSelection = { fg = text },
        TelescopeBorder = { fg = bg },
+       CursorLineNr = { fg = gray },
        StatusLine = { fg = "#cccccc", bg = "#232325" },
        -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
-       ['@punctuation'] = { fg = gray0 },
-       ['@punctuation.bracket'] = { fg = gray0 },
-       ['@punctuation.delimiter'] = { fg = gray0 },
-       ['@punctuation.special'] = { fg = gray0 },
-       ['@comment'] = { fg = gray },
-       ['@comment.documentation'] = { fg = "#757575" },
-       ['@keyword'] = { fg = gray },
-       ['@keyword.function'] = { fg = gray },
-       ['@keyword.coroutine'] = { fg = gray },
-       ['@keyword.operator'] = { fg = gray },
-       ['@keyword.return'] = { fg = gray },
-       ['@include'] = { fg = gray },
-       ['@operator'] = { fg = gray },
-       ['@label'] = { fg = gray },
-       ['@repeat'] = { fg = gray },
-       ['@conditional'] = { fg = gray },
-       ['@conditional.ternary'] = { fg = gray },
-       ['@exception'] = { fg = gray },
-       ['@variable.builtin'] = { fg = yellow },
-       ['@attribute'] = { fg = text },
-       ['@function'] = { fg = text },
-       ['@function.call'] = { fg = text },
-       ['@variable'] = { fg = text },
-       ['@constant'] = { fg = text },
-       ['@constant.builtin'] = { fg = yellow },
-       ['@field'] = { fg = text },
-       ['@property'] = { fg = text },
-       ['@method'] = { fg = text },
-       ['@parameter'] = { fg = text, style = { "italic" } },
-       ['@type'] = { fg = yellow, style = { "italic" } },
-       ['@type.builtin'] = { fg = yellow, style = { "italic" } },
+       ["@comment"] = { fg = gray0 },
+       ["@comment.documentation"] = { fg = gray0 },
+       ["@punctuation"] = { fg = gray },
+       ["@punctuation.bracket"] = { fg = gray },
+       ["@punctuation.delimiter"] = { fg = gray },
+       ["@punctuation.special"] = { fg = gray },
+       ["@keyword"] = { fg = gray },
+       ["@keyword.function"] = { fg = gray },
+       ["@keyword.coroutine"] = { fg = gray },
+       ["@keyword.operator"] = { fg = gray },
+       ["@keyword.return"] = { fg = gray },
+       ["@include"] = { fg = gray },
+       ["@operator"] = { fg = gray },
+       ["@label"] = { fg = gray },
+       ["@repeat"] = { fg = gray },
+       ["@conditional"] = { fg = gray },
+       ["@conditional.ternary"] = { fg = gray },
+       ["@exception"] = { fg = gray },
+       ["@variable.builtin"] = { fg = yellow },
+       ["@attribute"] = { fg = text },
+       ["@function"] = { fg = text },
+       ["@function.call"] = { fg = text },
+       ["@variable"] = { fg = text },
+       ["@constant"] = { fg = text },
+       ["@constant.builtin"] = { fg = yellow },
+       ["@field"] = { fg = text },
+       ["@property"] = { fg = text },
+       ["@method"] = { fg = text },
+       ["@parameter"] = { fg = text, style = { "italic" } },
+       ["@type"] = { fg = yellow, style = { "italic" } },
+       ["@type.builtin"] = { fg = yellow, style = { "italic" } },
      }
     end 
 })
@@ -193,7 +197,8 @@ local function lineinfo()
   if vim.bo.filetype == "alpha" then
     return ""
   end
-  return " %p%% %l:%c "
+  -- return " %p%% %l:%c "
+  return "Copilot connected"
 end
 Statusline = {}
 Statusline.active = function()
