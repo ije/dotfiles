@@ -17,6 +17,9 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Fixs ":Copilot <Tab> map has been dusabled or is claimed by another plugin"
+vim.g.copilot_assume_mapped = true
+
 -- Install packer if not exists
 local packpath = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if not vim.loop.fs_stat(packpath) then
@@ -324,34 +327,36 @@ vim.keymap.set({"n", "v"}, "<C-u>", "10k")
 vim.keymap.set({"n", "v"}, "<C-d>", "10j")
 vim.keymap.set({"n", "v"}, "<C-a>", "^")
 vim.keymap.set({"n", "v"}, "<C-e>", "$")
-vim.keymap.set({"n", "v"}, "<Leader>d", "\"_d")
-vim.keymap.set({"n", "v"}, "<Leader>p", "\"_dP")
 
 -- Key bindings (normal)
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 local builtin = require("telescope.builtin")
 local gs = require("gitsigns")
-vim.keymap.set("n", "<C-c>", ":q<Enter>")
-vim.keymap.set("n", "<leader>fs", "<cmd>lua vim.api.nvim_command('write')<CR>")
+vim.keymap.set("n", "<C-c>", ":q<CR>")
+vim.keymap.set("n", "J", ":move +1<CR>")
+vim.keymap.set("n", "K", ":move -2<CR>")
+vim.keymap.set("n", "<C-j>", ":move +1<CR>")
+vim.keymap.set("n", "<c-k>", ":move -2<CR>")
+vim.keymap.set("n", "<leader>fs", function() vim.api.nvim_command("write") end)
 vim.keymap.set("n", "<leader>a", "[[v]]")
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>d", "yyp")
 vim.keymap.set("n", "<leader><Enter>", "O<Esc>")
-vim.keymap.set("n", "<leader>lg", "<cmd>lua lg_term_toggle()<CR>")
-vim.keymap.set("n", "<C-t>", "<cmd>TermExec cmd='zig test %' direction='vertical'<CR>")
+vim.keymap.set("n", "<leader>lg", lg_term_toggle)
 vim.keymap.set("n", "<leader>n", gs.next_hunk)
 vim.keymap.set("n", "<leader>ff", builtin.git_files)
 vim.keymap.set("n", "<leader>t", builtin.buffers)
 vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration)
-vim.keymap.set("n", "<leader>m", mark.add_file)
 vim.keymap.set("n", "<leader>e", ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>m", mark.add_file)
 vim.keymap.set("n", "<leader>j", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>k", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>l", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<leader>;", function() ui.nav_file(4) end)
+vim.keymap.set("n", "<C-t>", ":TermExec cmd='zig test %' direction='vertical'<CR>")
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-p>", "<Up>")
@@ -361,15 +366,16 @@ vim.keymap.set("i", "<C-d>", "<C-o>x")
 vim.keymap.set("i", "<C-w>", "<C-o>diw")
 vim.keymap.set("i", "<C-a>", "<C-o>^")
 vim.keymap.set("i", "<C-e>", "<C-o>$")
-vim.keymap.set("i", "<C-k>", "<C-o>dd")
+vim.keymap.set("i", "<C-k>", "<C-o>\"_dd")
 vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 
 -- Key bindings (view)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<Leader>y", [["+y]])
+vim.keymap.set("v", "<Leader>p", "\"_dP")
 
 -- Done
 print(":)")
