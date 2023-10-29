@@ -90,7 +90,7 @@ end)
 require("catppuccin").setup({
    transparent_background = true,
    color_overrides = {
-		 all = {
+     all = {
        text = "#dddddd",
        lavender = "#dddddd",
        blue = "#B1FCE5",
@@ -108,7 +108,7 @@ require("catppuccin").setup({
    custom_highlights = function(colors)
      local bg = "#101010"
      local gray = "#999999"
-     local gray0 = "#777A7F"
+     local gray0 = "#888A8F"
      local text = colors.text
      local yellow = colors.yellow 
      return {
