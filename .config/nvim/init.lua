@@ -193,24 +193,19 @@ end
 local function filetype()
   return string.format(" %s ", vim.bo.filetype):upper()
 end
-local function lineinfo()
-  if vim.bo.filetype == "alpha" then
-    return ""
-  end
-  -- return " %p%% %l:%c "
-  return "Copilot connected"
-end
 Statusline = {}
 Statusline.active = function()
-  return table.concat {
+  return table.concat({
     "%#statusline#",
     "%#statuslineaccent#",
     mode(),
     "%#@comment# ",
     filename(),
     "%=%#statuslineextra#",
-    lineinfo(),
-  }
+    " ⌁ ",
+    "%#@comment#",
+    " Copilot",
+  })
 end
 function Statusline.inactive()
   return " %f"
