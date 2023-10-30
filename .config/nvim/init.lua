@@ -115,11 +115,12 @@ require("catppuccin").setup({
      local text = colors.text
      local yellow = colors.yellow 
      return {
+       CursorLineNr = { fg = gray },
+       StatusLine = { fg = "#cccccc", bg = "#232325" },
+       FloatBorder = { fg = "#454545" },
        TelescopeNormal = { fg = gray },
        TelescopeSelection = { fg = text },
        TelescopeBorder = { fg = bg },
-       CursorLineNr = { fg = gray },
-       StatusLine = { fg = "#cccccc", bg = "#232325" },
        -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
        ["@comment"] = { fg = gray0 },
        ["@comment.documentation"] = { fg = gray0 },
@@ -139,19 +140,19 @@ require("catppuccin").setup({
        ["@conditional"] = { fg = gray },
        ["@conditional.ternary"] = { fg = gray },
        ["@exception"] = { fg = gray },
-       ["@variable.builtin"] = { fg = yellow },
+       ["@variable.ts"] = { fg = yellow },
        ["@attribute"] = { fg = text },
        ["@function"] = { fg = text },
        ["@function.call"] = { fg = text },
        ["@variable"] = { fg = text },
        ["@constant"] = { fg = text },
-       ["@constant.builtin"] = { fg = yellow },
+       ["@constant.ts"] = { fg = yellow },
        ["@field"] = { fg = text },
        ["@property"] = { fg = text },
        ["@method"] = { fg = text },
        ["@parameter"] = { fg = text, style = { "italic" } },
        ["@type"] = { fg = yellow, style = { "italic" } },
-       ["@type.builtin"] = { fg = yellow, style = { "italic" } },
+       ["@type.ts"] = { fg = yellow, style = { "italic" } },
      }
     end 
 })
@@ -174,13 +175,33 @@ local function get_mode_name()
   local mode = vim.fn.mode()
   return modeMap[mode] or "UNKNOWN"
 end
+local function git_status()
+  if vim.b.gitsigns_status then
+    local result = {}
+    for word in vim.b.gitsigns_status:gmatch("%S+") do
+      if word:sub(1,1) == "+" then
+        table.insert(result, "%#GitSignsAdd#")
+        table.insert(result, word)
+      elseif word:sub(1,1) == "-" then
+        table.insert(result, "%#GitSignsDelete#")
+        table.insert(result, word)
+      else
+        table.insert(result, "%#GitSignsChange#")
+        table.insert(result, word)
+      end
+    end
+    return table.concat(result, " ")
+   end
+  return ""
+ end
 Statusline = {}
 Statusline.active = function()
   return table.concat({
     "%#statusline# ",
     get_mode_name(),
     " %#@comment#",
-    " %t",
+    " %t ",
+    git_status(),
     "%=%#statuslineextra#",
     " ⌁ ",
     "%#@comment#",
@@ -274,7 +295,15 @@ require("telescope").setup({
 })
 
 -- Setup Gitsigns
-require("gitsigns").setup({})
+require("gitsigns").setup({
+  signs = {
+    delete = { text = '┃' },
+  },
+  preview_config = {
+    border = "solid",
+    col = 0,
+  }
+})
 
 -- Setup LSP
 local lsp = require("lspconfig")
@@ -311,8 +340,15 @@ vim.keymap.set({"n", "v"}, "<C-e>", "$")
 -- Key bindings (normal)
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-local builtin = require("telescope.builtin")
+local ts = require("telescope.builtin")
 local gs = require("gitsigns")
+function list_files()
+  if vim.b.gitsigns_head or vim.g.gitsigns_head then
+    ts.git_files()
+  else 
+    ts.find_files()
+  end
+end
 vim.keymap.set("n", "<C-c>", ":q<CR>")
 vim.keymap.set("n", "J", ":move +1<CR>")
 vim.keymap.set("n", "K", ":move -2<CR>")
@@ -325,8 +361,10 @@ vim.keymap.set("n", "<leader>d", "yyp")
 vim.keymap.set("n", "<leader><Enter>", "O<Esc>")
 vim.keymap.set("n", "<leader>lg", lg_term_toggle)
 vim.keymap.set("n", "<leader>n", gs.next_hunk)
-vim.keymap.set("n", "<leader>ff", builtin.git_files)
-vim.keymap.set("n", "<leader>t", builtin.buffers)
+vim.keymap.set("n", "<leader>i", gs.preview_hunk)
+vim.keymap.set("n", "<leader>u", gs.undo_stage_hunk)
+vim.keymap.set("n", "<leader>ff", list_files)
+vim.keymap.set("n", "<leader>t", ts.buffers)
 vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "<Leader>g", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Leader>G", vim.lsp.buf.declaration)
