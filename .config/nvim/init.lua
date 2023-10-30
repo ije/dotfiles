@@ -140,19 +140,20 @@ require("catppuccin").setup({
        ["@conditional"] = { fg = gray },
        ["@conditional.ternary"] = { fg = gray },
        ["@exception"] = { fg = gray },
-       ["@variable.ts"] = { fg = yellow },
        ["@attribute"] = { fg = text },
        ["@function"] = { fg = text },
        ["@function.call"] = { fg = text },
        ["@variable"] = { fg = text },
+       ["@variable.builtin"] = { fg = text, style = { "italic" } },
        ["@constant"] = { fg = text },
-       ["@constant.ts"] = { fg = yellow },
+       ["@constant.builtin"] = { fg = text, style = { "italic" } },
        ["@field"] = { fg = text },
        ["@property"] = { fg = text },
        ["@method"] = { fg = text },
+       ["@method.call"] = { fg = text },
        ["@parameter"] = { fg = text, style = { "italic" } },
        ["@type"] = { fg = yellow, style = { "italic" } },
-       ["@type.ts"] = { fg = yellow, style = { "italic" } },
+       ["@type.builtin"] = { fg = yellow, style = { "italic" } },
      }
     end 
 })
