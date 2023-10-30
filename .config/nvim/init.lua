@@ -185,12 +185,12 @@ local function git_status()
       elseif word:sub(1,1) == "-" then
         table.insert(result, "%#GitSignsDelete#")
         table.insert(result, word)
-      else
+      elseif word:sub(1,1) == "~" then
         table.insert(result, "%#GitSignsChange#")
         table.insert(result, word)
       end
     end
-    return table.concat(result, " ")
+    return table.concat(result, "")
    end
   return ""
  end
