@@ -157,50 +157,30 @@ require("catppuccin").setup({
 })
 
 -- Setup the Statueline
-local modes = {
-  ["n"] = "normal",
-  ["no"] = "normal",
-  ["v"] = "visual",
-  ["V"] = "visual line",
-  [""] = "visual block",
-  ["s"] = "select",
-  ["S"] = "select line",
-  [""] = "select block",
-  ["i"] = "insert",
-  ["ic"] = "insert",
-  ["r"] = "replace",
-  ["rv"] = "visual replace",
-  ["c"] = "command",
-  ["cv"] = "vim ex",
-  ["ce"] = "ex",
-  ["r"] = "prompt",
-  ["rm"] = "moar",
-  ["r?"] = "confirm",
-  ["!"] = "shell",
-  ["t"] = "terminal",
-}
-local function mode()
-  local current_mode = vim.api.nvim_get_mode().mode
-  return string.format(" %s ", modes[current_mode]):upper()
-end
-local function filename()
-  local fname = vim.fn.expand "%:t"
-  if fname == "" then
-      return ""
-  end
-  return fname .. " "
-end
-local function filetype()
-  return string.format(" %s ", vim.bo.filetype):upper()
+local function get_mode_name()
+  local modeMap = {
+    n = "NORMAL",
+    i = "INSERT",
+    R = "REPLACE",
+    v = "VISUAL",
+    V = "V-LINE",
+    c = "COMMAND",
+    [""] = "V-BLOCK",
+    s = "SELECT",
+    S = "S-LINE",
+    [""] = "S-BLOCK",
+    t = "TERMINAL",  
+  }
+  local mode = vim.fn.mode()
+  return modeMap[mode] or "UNKNOWN"
 end
 Statusline = {}
 Statusline.active = function()
   return table.concat({
-    "%#statusline#",
-    "%#statuslineaccent#",
-    mode(),
-    "%#@comment# ",
-    filename(),
+    "%#statusline# ",
+    get_mode_name(),
+    " %#@comment#",
+    " %t",
     "%=%#statuslineextra#",
     " ⌁ ",
     "%#@comment#",
