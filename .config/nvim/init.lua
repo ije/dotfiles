@@ -245,27 +245,13 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert {
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete {},
     ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
+      if luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
       else
         fallback()
       end
@@ -335,8 +321,8 @@ vim.keymap.set({"n", "i", "v", "c"}, "<C-b>", "<Left>")
 vim.keymap.set({"n", "i", "v", "c"}, "<C-f>", "<Right>")
 vim.keymap.set({"n", "v", "c"}, "<C-a>", "^")
 vim.keymap.set({"n", "v", "c"}, "<C-e>", "$")
-vim.keymap.set({"n", "v"}, "<C-u>", "10kzz")
-vim.keymap.set({"n", "v"}, "<C-d>", "10jzz")
+vim.keymap.set({"n", "v"}, "<C-u>", "10k")
+vim.keymap.set({"n", "v"}, "<C-d>", "10j")
 
 -- Key bindings (normal)
 local mark = require("harpoon.mark")
@@ -356,7 +342,7 @@ vim.keymap.set("n", "<C-j>", ":move +1<CR>")
 vim.keymap.set("n", "<C-k>", ":move -2<CR>")
 vim.keymap.set("n", "<Leader>fs", function() vim.api.nvim_command("write") end)
 vim.keymap.set("n", "<Leader>a", "[[v]]")
-vim.keymap.set("n", "<Leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<Leader>r", [[:%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<Leader>s", [[:%s///g<Left><Left><Left>]])
 vim.keymap.set("n", "<Leader>d", "yyp")
 vim.keymap.set("n", "<Leader><Enter>", "O<Esc>")
