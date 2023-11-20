@@ -277,6 +277,12 @@ require("telescope").setup({
       theme = "dropdown",
       prompt_title = "";
       prompt_prefix = "";
+    },
+    live_grep = {
+      previewer = false,
+      theme = "dropdown",
+      prompt_title = "";
+      prompt_prefix = "";
     }
   },
 })
@@ -349,6 +355,7 @@ vim.keymap.set("n", "<Leader>n", gs.next_hunk)
 vim.keymap.set("n", "<Leader>i", gs.preview_hunk)
 vim.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
 vim.keymap.set("n", "<Leader>e", list_files)
+vim.keymap.set("n", "<Leader>f", ts.live_grep)
 vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Leader>q", ui.toggle_quick_menu)
