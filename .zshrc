@@ -27,6 +27,10 @@ export PATH="$HOME/.go/bin:$PATH"
 export ZIG_INSTALL="$HOME/.zig/zig-0.11.0"
 export PATH="$ZIG_INSTALL:$PATH"
 
+# node
+export NODE_INSTALL="$HOME/.node/node-20.11.1"
+export PATH="$NODE_INSTALL/bin:$PATH"
+
 # deno
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
@@ -35,17 +39,10 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# VOLTA
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 # tools
 export PATH="$HOME/.lazygit:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.fd:$PATH"
 export PATH="$HOME/.nvim/bin:$PATH"
 export PATH="$HOME/.helix:$PATH"
-# export PATH="$HOME/.binaryen-113/bin:$PATH"
-
-# completions
-[ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
+export PATH="$HOME/.binaryen-116/bin:$PATH"
