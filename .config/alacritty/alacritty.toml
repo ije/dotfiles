@@ -1,0 +1,60 @@
+working_directory = "/Users/x/Downloads"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.cursor]
+cursor = "#BB33B8"
+text = "#ffffff"
+
+[colors.footer_bar]
+background = "#000000"
+foreground = "#cccccc"
+
+[colors.normal]
+black = "#757575"
+blue = "#0A2FC4"
+cyan = "#20C5C6"
+green = "#1DC121"
+magenta = "#C839C5"
+red = "#D53E33"
+white = "#CCCCCC"
+yellow = "#C7C329"
+
+[colors.primary]
+background = "#101010"
+foreground = "#d5d8d6"
+
+[font]
+size = 18.0
+
+[font.glyph_offset]
+x = 0
+y = 6
+
+[font.italic]
+family = "dank mono"
+style = "Italic"
+
+[font.normal]
+family = "dank mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 6
+
+[window]
+decorations_theme_variant = "Dark"
+
+[window.dimensions]
+columns = 120
+lines = 24
+
+[window.padding]
+x = 5
+y = 3
+
+[window.position]
+x = 280
+y = 280
