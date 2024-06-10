@@ -57,6 +57,7 @@ require("packer").startup(function(use)
       ts_update()
     end
   })
+
   use("nvim-treesitter/playground")
 
   -- LSP Support
@@ -76,12 +77,6 @@ require("packer").startup(function(use)
 
   -- Git
   use("lewis6991/gitsigns.nvim")
-
-  -- Term
-  use("akinsho/toggleterm.nvim")
-
-  -- Harpoon
-  use("theprimeagen/harpoon")
 
   -- Github copilot
   use("github/copilot.vim")
@@ -304,17 +299,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lsp.zls.setup({capabilities = capabilities})
 lsp.denols.setup({capabilities = capabilities})
 
--- Setup terminals
-require("toggleterm").setup({size = vim.o.columns * 0.4})
-
-local Terminal  = require("toggleterm.terminal").Terminal
-local lg_term = Terminal:new({
-  cmd = "lazygit",
-  hidden = true,
-  direction = "float",
-})
-function lg_term_toggle() lg_term:toggle() end
-
 -- My commands
 vim.api.nvim_create_user_command(
   "Config",
@@ -322,17 +306,15 @@ vim.api.nvim_create_user_command(
   {bang = true, desc = "Open init.lua Neovim config"}
 )
 
--- Key bindings
+-- Key bindings (move cursor)
 vim.keymap.set({"n", "i", "v", "c"}, "<C-b>", "<Left>")
 vim.keymap.set({"n", "i", "v", "c"}, "<C-f>", "<Right>")
 vim.keymap.set({"n", "v", "c"}, "<C-a>", "^")
 vim.keymap.set({"n", "v", "c"}, "<C-e>", "$")
-vim.keymap.set({"n", "v"}, "<C-u>", "10k")
-vim.keymap.set({"n", "v"}, "<C-d>", "10j")
+vim.keymap.set({"n", "v"}, "<C-h>", "10k")
+vim.keymap.set({"n", "v"}, "<C-l>", "10j")
 
 -- Key bindings (normal)
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
 local ts = require("telescope.builtin")
 local gs = require("gitsigns")
 function list_files()
@@ -347,10 +329,10 @@ vim.keymap.set("n", "<C-j>", ":move +1<CR>")
 vim.keymap.set("n", "<C-k>", ":move -2<CR>")
 vim.keymap.set("n", "<Leader>w", function() vim.api.nvim_command("write") end)
 vim.keymap.set("n", "<Leader>a", "[[v]]")
+vim.keymap.set("n", "<Leader>y", [["+y]])
 vim.keymap.set("n", "<Leader>r", [[:%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<Leader>d", "yyp")
 vim.keymap.set("n", "<Leader><Enter>", "O<Esc>")
-vim.keymap.set("n", "<Leader>g", lg_term_toggle)
 vim.keymap.set("n", "<Leader>n", gs.next_hunk)
 vim.keymap.set("n", "<Leader>i", gs.preview_hunk)
 vim.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
@@ -358,16 +340,9 @@ vim.keymap.set("n", "<Leader>e", list_files)
 vim.keymap.set("n", "<Leader>f", ts.live_grep)
 vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "<Leader>q", ui.toggle_quick_menu)
-vim.keymap.set("n", "<Leader>m", mark.add_file)
-vim.keymap.set("n", "<Leader>1", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<Leader>2", function() ui.nav_file(2) end)
-vim.keymap.set("n", "<Leader>3", function() ui.nav_file(3) end)
-vim.keymap.set("n", "<Leader>4", function() ui.nav_file(4) end)
 vim.keymap.set("n", "<Leader>//", "^i// <Esc>")
 vim.keymap.set("n", "<Leader>\\\\", "^df ")
 vim.keymap.set("n", "<Leader>x", "<C-w>o")
-vim.keymap.set("n", "<Leader>t", ":TermExec cmd='zig test %' direction='vertical'<CR>")
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-p>", "<Up>")
