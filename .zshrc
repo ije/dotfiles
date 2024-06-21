@@ -19,14 +19,16 @@ export PATH="$HOME/.docker/bin:$PATH"
 
 # golang
 export GOPATH="$HOME/.go"
-export PATH="$HOME/.go/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 
 # zig
-export ZIG_INSTALL="$HOME/.zig/zig-0.12.0"
+export ZIG_VERSION="0.13.0"
+export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_INSTALL="$HOME/.node/node-22.1.0"
+export NODE_VERSION="22.1.0"
+export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
 # deno
@@ -46,4 +48,4 @@ export PATH="$HOME/.nvim/bin:$PATH"
 export PATH="$HOME/.lazygit:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.fd:$PATH"
-export PATH="$HOME/.binaryen-116/bin:$PATH"
+export PATH="$HOME/.binaryen-117/bin:$PATH"
