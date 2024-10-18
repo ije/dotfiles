@@ -9,6 +9,7 @@ alias home="cd ~"
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimconf="nvim ~/.config/nvim/init.lua"
+alias gitundo="git reset --soft HEAD^"
 
 function repos() {
   cd ~/.repos/$1
@@ -27,7 +28,7 @@ export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_VERSION="22.1.0"
+export NODE_VERSION="22.10.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
@@ -48,4 +49,5 @@ export PATH="$HOME/.nvim/bin:$PATH"
 export PATH="$HOME/.lazygit:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.fd:$PATH"
-export PATH="$HOME/.binaryen-117/bin:$PATH"
+export PATH="$HOME/.binaryen/binaryen_119/bin:$PATH"
+export PATH="$HOME/.wabt/wabt-1.0.35/bin:$PATH"
