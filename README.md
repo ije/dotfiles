@@ -1,5 +1,6 @@
 # dotfiles
 
+![ScreenShot](./screenshot.png)
 Personal terminal configuration.
 
 - neovim: [init.lua](./.config/nvim/init.lua)
