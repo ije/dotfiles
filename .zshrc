@@ -9,10 +9,16 @@ alias home="cd ~"
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
+alias p="pnpm"
+alias publish="npm publish"
+alias status="git status"
+alias add="git add"
+alias commit="git commit -m"
 alias branch="git checkout -b"
 alias checkout="git checkout"
 alias merge="git merge"
-alias publish="npm publish"
+alias pull="git pull"
+alias push="git push"
 
 function repos() {
   cd ~/.repos/$1
