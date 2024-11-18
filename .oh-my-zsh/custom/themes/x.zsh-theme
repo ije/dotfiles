@@ -1,11 +1,11 @@
 local resetColor="%{$reset_color%}"
-local logo="%{$fg_bold[white]%}◆$resetColor"
-local dir="%{$fg_bold[black]%}%c$resetColor"
+local logo="%{$fg[white]%}◆$resetColor"
+local dir="%{$fg[black]%}%c$resetColor"
 
 GIT_PROMPT_PREFIX="["
 GIT_PROMPT_SUFFIX="$resetColor] "
-GIT_PROMPT_DIRTY="%{$fg_bold[red]%}"
-GIT_PROMPT_CLEAN="%{$fg_bold[green]%}"
+GIT_PROMPT_DIRTY="%{$fg[red]%}"
+GIT_PROMPT_CLEAN="%{$fg[green]%}"
 
 # modified from https://github.com/robbyrussell/oh-my-zsh/blob/576ada138fc5eed3f58a4aff8141e483310c90fb/lib/git.zsh#L12
 function branch_is_dirty() {
