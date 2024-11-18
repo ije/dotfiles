@@ -8,8 +8,11 @@ source $ZSH/oh-my-zsh.sh
 alias home="cd ~" 
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
-alias nvimconf="nvim ~/.config/nvim/init.lua"
-alias gitundo="git reset --soft HEAD^"
+alias nvimrc="nvim ~/.config/nvim/init.lua"
+alias branch="git checkout -b"
+alias checkout="git checkout"
+alias merge="git merge"
+alias publish="npm publish"
 
 function repos() {
   cd ~/.repos/$1
