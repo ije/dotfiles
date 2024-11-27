@@ -1,3 +1,6 @@
+# Alacritty 0.14.0
+
+[general]
 working_directory = "/Users/x/Downloads"
 
 [colors]
@@ -52,8 +55,8 @@ columns = 120
 lines = 24
 
 [window.padding]
-x = 5
-y = 3
+x = 6
+y = 4
 
 [window.position]
 x = 280
