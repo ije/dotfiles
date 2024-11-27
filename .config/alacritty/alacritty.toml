@@ -44,6 +44,11 @@ style = "Regular"
 x = 0
 y = 6
 
+# fix cursor position since we changed the line space
+[font.glyph_offset]
+x = 0
+y = 6
+
 [window]
 decorations_theme_variant = "Dark"
 
@@ -58,3 +63,4 @@ y = 4
 [window.position]
 x = 280
 y = 280
+
