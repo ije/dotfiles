@@ -31,10 +31,6 @@ foreground = "#d5d8d6"
 [font]
 size = 18.0
 
-[font.glyph_offset]
-x = 0
-y = 6
-
 [font.italic]
 family = "dank mono"
 style = "Italic"
@@ -43,6 +39,7 @@ style = "Italic"
 family = "dank mono"
 style = "Regular"
 
+# add a little extra space between lines
 [font.offset]
 x = 0
 y = 6
