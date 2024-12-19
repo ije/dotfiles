@@ -11,16 +11,19 @@ alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias p="pnpm"
 alias i="pnpm install"
-alias x="dum"
-alias publish="npm publish"
-alias status="git status"
-alias add="git add"
-alias commit="git commit -m"
-alias branch="git checkout -b"
-alias checkout="git checkout"
+alias publish="npm publish --access public"
+alias g="git"
+alias main="git checkout main"
 alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
+
+function branch() {
+  git checkout $1
+  if [ $? -ne 0 ]; then
+    git checkout -b $1
+  fi
+}
 
 function repos() {
   cd ~/.repos/$1
