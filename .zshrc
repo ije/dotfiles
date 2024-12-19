@@ -19,8 +19,10 @@ alias pull="git pull"
 alias push="git push"
 
 function branch() {
-  git checkout $1
-  if [ $? -ne 0 ]; then
+  git checkout $1 2> /dev/null
+  if [ $? -eq 0 ]; then
+    echo "Switched to branch '$1'"
+  else
     git checkout -b $1
   fi
 }
