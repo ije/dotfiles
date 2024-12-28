@@ -2,7 +2,7 @@
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.nu = true
-vim.o.showmode = false 
+vim.o.showmode = false
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -83,7 +83,7 @@ require("packer").startup(function(use)
 
 end)
 
--- Setup the theme colors
+-- Setup theme colors
 require("catppuccin").setup({
    transparent_background = true,
    color_overrides = {
@@ -108,7 +108,7 @@ require("catppuccin").setup({
      local gray = "#999999"
      local gray0 = "#757575"
      local text = colors.text
-     local yellow = colors.yellow 
+     local yellow = colors.yellow
      return {
        CursorLineNr = { fg = gray },
        StatusLine = { fg = "#cccccc", bg = "#232325" },
@@ -150,10 +150,10 @@ require("catppuccin").setup({
        ["@type"] = { fg = yellow, style = { "italic" } },
        ["@type.builtin"] = { fg = yellow, style = { "italic" } },
      }
-    end 
+    end
 })
 
--- Setup the Statueline
+-- Setup Statueline
 local function get_mode_name()
   local modeMap = {
     n = "NORMAL",
@@ -166,7 +166,7 @@ local function get_mode_name()
     s = "SELECT",
     S = "S-LINE",
     [""] = "S-BLOCK",
-    t = "TERMINAL",  
+    t = "TERMINAL",
   }
   local mode = vim.fn.mode()
   return modeMap[mode] or "UNKNOWN"
@@ -320,7 +320,7 @@ local gs = require("gitsigns")
 function list_files()
   if vim.b.gitsigns_head or vim.g.gitsigns_head then
     ts.git_files()
-  else 
+  else
     ts.find_files()
   end
 end
@@ -345,15 +345,13 @@ vim.keymap.set("n", "<Leader>\\\\", "^df ")
 vim.keymap.set("n", "<Leader>x", "<C-w>o")
 
 -- Key bindings (insert)
+vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("i", "<C-p>", "<Up>")
 vim.keymap.set("i", "<C-n>", "<Down>")
-vim.keymap.set("i", "<C-c>", "<Esc>")
-vim.keymap.set("i", "<C-d>", "<C-o>x")
-vim.keymap.set("i", "<C-w>", "<C-o>diw")
 vim.keymap.set("i", "<C-a>", "<C-o>^")
 vim.keymap.set("i", "<C-e>", "<C-o>$")
+vim.keymap.set("i", "<C-d>", "<C-o>x")
 vim.keymap.set("i", "<C-k>", "<C-o>\"_dd")
-vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 
 -- Key bindings (view)
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
