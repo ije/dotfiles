@@ -18,7 +18,7 @@ alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
 
-function branch() {
+function br() {
   git checkout $1 2> /dev/null
   if [ $? -eq 0 ]; then
     echo "Switched to branch '$1'"
@@ -30,9 +30,6 @@ function branch() {
 function repos() {
   cd ~/.repos/$1
 }
-
-# docker
-export PATH="$HOME/.docker/bin:$PATH"
 
 # golang
 export GOPATH="$HOME/.go"
