@@ -2,7 +2,7 @@
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.nu = true
-vim.o.showmode = false
+vim.o.showmode = false 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -15,7 +15,7 @@ vim.o.backup = false
 vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
--- Set <space> as the leader key
+-- Use <space> as the leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -57,7 +57,6 @@ require("packer").startup(function(use)
       ts_update()
     end
   })
-
   use("nvim-treesitter/playground")
 
   -- LSP Support
@@ -73,7 +72,7 @@ require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
     requires = { {"nvim-lua/plenary.nvim"} }
-   })
+  })
 
   -- Git
   use("lewis6991/gitsigns.nvim")
@@ -108,7 +107,7 @@ require("catppuccin").setup({
      local gray = "#999999"
      local gray0 = "#757575"
      local text = colors.text
-     local yellow = colors.yellow
+     local yellow = colors.yellow 
      return {
        CursorLineNr = { fg = gray },
        StatusLine = { fg = "#cccccc", bg = "#232325" },
@@ -150,7 +149,7 @@ require("catppuccin").setup({
        ["@type"] = { fg = yellow, style = { "italic" } },
        ["@type.builtin"] = { fg = yellow, style = { "italic" } },
      }
-    end
+    end 
 })
 
 -- Setup Statueline
@@ -166,7 +165,7 @@ local function get_mode_name()
     s = "SELECT",
     S = "S-LINE",
     [""] = "S-BLOCK",
-    t = "TERMINAL",
+    t = "TERMINAL",  
   }
   local mode = vim.fn.mode()
   return modeMap[mode] or "UNKNOWN"
@@ -229,7 +228,8 @@ require("nvim-treesitter.configs").setup({
 -- Setup cmp
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
+local luasnip_loaders = require("luasnip.loaders.from_vscode")
+luasnip_loaders.lazy_load()
 luasnip.config.setup({})
 cmp.setup({
   snippet = {
@@ -298,6 +298,8 @@ local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lsp.zls.setup({capabilities = capabilities})
 lsp.denols.setup({capabilities = capabilities})
+lsp.gopls.setup({capabilities = capabilities})
+lsp.rust_analyzer.setup({capabilities = capabilities})
 
 -- My commands
 vim.api.nvim_create_user_command(
@@ -311,8 +313,11 @@ vim.keymap.set({"n", "i", "v", "c"}, "<C-b>", "<Left>")
 vim.keymap.set({"n", "i", "v", "c"}, "<C-f>", "<Right>")
 vim.keymap.set({"n", "v", "c"}, "<C-a>", "^")
 vim.keymap.set({"n", "v", "c"}, "<C-e>", "$")
-vim.keymap.set({"n", "v"}, "<C-h>", "10k")
-vim.keymap.set({"n", "v"}, "<C-l>", "10j")
+vim.keymap.set({"i", "c"}, "<C-p>", "<Up>")
+vim.keymap.set({"i", "c"}, "<C-n>", "<Down>")
+vim.keymap.set({"i", "v"}, "<C-c>", "<Esc>")
+vim.keymap.set("i", "<C-a>", "<C-o>^")
+vim.keymap.set("i", "<C-e>", "<C-o>$")
 
 -- Key bindings (normal)
 local ts = require("telescope.builtin")
@@ -320,7 +325,7 @@ local gs = require("gitsigns")
 function list_files()
   if vim.b.gitsigns_head or vim.g.gitsigns_head then
     ts.git_files()
-  else
+  else 
     ts.find_files()
   end
 end
@@ -338,20 +343,16 @@ vim.keymap.set("n", "<Leader>i", gs.preview_hunk)
 vim.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
 vim.keymap.set("n", "<Leader>e", list_files)
 vim.keymap.set("n", "<Leader>f", ts.live_grep)
-vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "<Leader>//", "^i// <Esc>")
 vim.keymap.set("n", "<Leader>\\\\", "^df ")
 vim.keymap.set("n", "<Leader>x", "<C-w>o")
 
 -- Key bindings (insert)
-vim.keymap.set("i", "<C-c>", "<Esc>")
-vim.keymap.set("i", "<C-p>", "<Up>")
-vim.keymap.set("i", "<C-n>", "<Down>")
-vim.keymap.set("i", "<C-a>", "<C-o>^")
-vim.keymap.set("i", "<C-e>", "<C-o>$")
 vim.keymap.set("i", "<C-d>", "<C-o>x")
+vim.keymap.set("i", "<C-h>", "<C-o><Left><C-o>x")
 vim.keymap.set("i", "<C-k>", "<C-o>\"_dd")
+vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 
 -- Key bindings (view)
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
