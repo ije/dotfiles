@@ -329,7 +329,6 @@ function list_files()
     ts.find_files()
   end
 end
-vim.keymap.set("n", "<C-c>", ":q<CR>")
 vim.keymap.set("n", "<C-j>", ":move +1<CR>")
 vim.keymap.set("n", "<C-k>", ":move -2<CR>")
 vim.keymap.set("n", "<Leader>w", function() vim.api.nvim_command("write") end)
@@ -343,10 +342,10 @@ vim.keymap.set("n", "<Leader>i", gs.preview_hunk)
 vim.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
 vim.keymap.set("n", "<Leader>e", list_files)
 vim.keymap.set("n", "<Leader>f", ts.live_grep)
+vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gb", "<C-^>")
 vim.keymap.set("n", "<Leader>//", "^i// <Esc>")
-vim.keymap.set("n", "<Leader>\\\\", "^df ")
-vim.keymap.set("n", "<Leader>x", "<C-w>o")
 
 -- Key bindings (insert)
 vim.keymap.set("i", "<C-d>", "<C-o>x")
@@ -361,7 +360,6 @@ vim.keymap.set("v", "<Leader>y", [["+y]])
 vim.keymap.set("v", "<Leader>p", "\"_dP")
 vim.keymap.set("v", "<Leader>r", [[:s///g<Left><Left><Left>]])
 vim.keymap.set("v", "<Leader>//", "<C-v>I// <Esc>")
-vim.keymap.set("v", "<Leader>\\\\", "<C-v>I<C-o>df <Esc>")
 
 -- Done
 print(":)")
