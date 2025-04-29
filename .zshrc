@@ -5,30 +5,31 @@ export ZSH="/Users/x/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # aliases
-alias home="cd ~" 
 alias dl="cd ~/Downloads"
+alias td="torrent download"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
+alias publish="npm publish --access public"
 alias p="pnpm"
 alias i="pnpm install"
-alias publish="npm publish --access public"
+alias add ="git add"
+alias branch="git branch"
+alias checkout="git checkout"
+alias commit="git commit"
 alias main="git checkout main"
 alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
-
-function br() {
-  git checkout $1 2> /dev/null
-  if [ $? -eq 0 ]; then
-    echo "Switched to branch '$1'"
-  else
-    git checkout -b $1
-  fi
-}
+alias status="git status"
 
 function repos() {
   cd ~/.repos/$1
 }
+
+# nvim
+export PATH="$HOME/.nvim/bin:$PATH"
+export PATH="$HOME/.ripgrep:$PATH"
+export PATH="$HOME/.fd:$PATH"
 
 # golang
 export GOPATH="$HOME/.go"
@@ -40,7 +41,7 @@ export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_VERSION="22.10.0"
+export NODE_VERSION="22.15.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
@@ -56,10 +57,7 @@ export PATH="$DPRINT_INSTALL/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# tools
-export PATH="$HOME/.nvim/bin:$PATH"
-export PATH="$HOME/.lazygit:$PATH"
-export PATH="$HOME/.ripgrep:$PATH"
-export PATH="$HOME/.fd:$PATH"
+# other tools
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.wabt/wabt-1.0.35/bin:$PATH"
+export PATH="$HOME/.rar:$PATH"
