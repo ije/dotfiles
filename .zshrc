@@ -10,8 +10,8 @@ alias td="torrent download"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias publish="npm publish --access public"
-alias p="pnpm"
-alias i="pnpm install"
+alias i="bun install"
+alias dev="bun dev"
 alias add="git add"
 alias branch="git branch"
 alias checkout="git checkout"
@@ -36,12 +36,12 @@ export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
 # zig
-export ZIG_VERSION="0.13.0"
+export ZIG_VERSION="0.11.0"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_VERSION="22.15.0"
+export NODE_VERSION="24.0.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
