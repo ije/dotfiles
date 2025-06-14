@@ -27,20 +27,24 @@ function repos() {
   cd ~/.repos/$1
 }
 
-function work() {
-  if [ -z "$WORK_BRANCH" ]; then
-    if [ -z "$1" ]; then
-      echo "Usage: work <branch-name>"
+function wip() {
+  if [ -z "$1" ]; then
+    if [ -z "$WIP_BRANCH" ]; then
+      echo "Usage: wip <branch-name>"
       return 1
+    else
+      git checkout "$WIP_BRANCH"
+    fi
+  else
+    git checkout $1 $2
+    if [ $? -ne 0 ]; then
+      return $?
     fi
     if [ "$1" = "-b" ]; then
-      export WORK_BRANCH=$2
+      export WIP_BRANCH=$2
     else 
-      export WORK_BRANCH=$1
+      export WIP_BRANCH=$1
     fi
-    git checkout $1 $2
-  else 
-    git checkout "$WORK_BRANCH"
   fi
 }
 
@@ -54,7 +58,7 @@ export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
 # zig
-export ZIG_VERSION="0.13.0"
+export ZIG_VERSION="0.11.0"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
