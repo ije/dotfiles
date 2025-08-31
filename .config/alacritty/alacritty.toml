@@ -1,4 +1,4 @@
-# https://alacritty.org/config-alacritty.html
+# https://alacritty.org/config-alacritty.html 
 
 [general]
 working_directory = "/Users/x/Downloads"
@@ -51,6 +51,7 @@ y = 6
 
 [window]
 decorations_theme_variant = "Dark"
+option_as_alt = "OnlyLeft"
 
 [window.dimensions]
 columns = 120
@@ -63,4 +64,3 @@ y = 4
 [window.position]
 x = 280
 y = 280
-
