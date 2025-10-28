@@ -87,4 +87,3 @@ export PATH="$PATH:$HOME/.ripgrep"
 export PATH="$PATH:$HOME/.gh/gh_2.74.2/bin"
 export PATH="$PATH:$HOME/.binaryen/binaryen_123/bin"
 export PATH="$PATH:$HOME/.wabt/wabt-1.0.35/bin"
-
