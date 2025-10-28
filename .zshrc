@@ -30,7 +30,9 @@ function repos() {
 function wip() {
   if [ -z "$1" ]; then
     if [ -z "$WIP_BRANCH" ]; then
-      echo "Usage: wip <branch-name>"
+      echo "Usage: wip [OPTIONS] <branch-name>"
+      echo "  OPTIONS:"
+      echo "    -b  Create a new branch"
       return 1
     else
       git checkout "$WIP_BRANCH"
@@ -49,40 +51,40 @@ function wip() {
 }
 
 # nvim
-export PATH="$HOME/.nvim/bin:$PATH"
-export PATH="$HOME/.ripgrep:$PATH"
-export PATH="$HOME/.fd:$PATH"
+export PATH="$PATH:$HOME/.nvim/bin"
 
 # golang
 export GOPATH="$HOME/.go"
-export PATH="$GOPATH/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
 
 # zig
 export ZIG_VERSION="0.11.0"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
-export PATH="$ZIG_INSTALL:$PATH"
+export PATH="$PATH:$ZIG_INSTALL"
 
 # node
-export NODE_VERSION="20.19.2"
+export NODE_VERSION="22.18.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
-export PATH="$NODE_INSTALL/bin:$PATH"
+export PATH="$PATH:$NODE_INSTALL/bin"
 
 # deno
 export DENO_INSTALL="$HOME/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="$PATH:$DENO_INSTALL/bin"
 
 # dprint
 export DPRINT_INSTALL="$HOME/.dprint"
-export PATH="$DPRINT_INSTALL/bin:$PATH"
+export PATH="$PATH:$DPRINT_INSTALL/bin"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:$BUN_INSTALL/bin"
 # bun completions
 [ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
 
 # other tools
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
-export PATH="$HOME/.wabt/wabt-1.0.35/bin:$PATH"
-export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
+export PATH="$PATH:$HOME/.fd"
+export PATH="$PATH:$HOME/.ripgrep"
+export PATH="$PATH:$HOME/.gh/gh_2.74.2/bin"
+export PATH="$PATH:$HOME/.binaryen/binaryen_123/bin"
+export PATH="$PATH:$HOME/.wabt/wabt-1.0.35/bin"
+
