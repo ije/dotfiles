@@ -21,6 +21,7 @@ alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
 alias gs="git status"
+alias ca="cursor-agent"
 
 function repos() {
   cd ~/.repos/$1
@@ -62,7 +63,7 @@ export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$PATH:$ZIG_INSTALL"
 
 # node
-export NODE_VERSION="22.18.0"
+export NODE_VERSION="24.12.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$PATH:$NODE_INSTALL/bin"
 
@@ -86,3 +87,5 @@ export PATH="$PATH:$HOME/.ripgrep"
 export PATH="$PATH:$HOME/.gh/gh_2.74.2/bin"
 export PATH="$PATH:$HOME/.binaryen/binaryen_123/bin"
 export PATH="$PATH:$HOME/.wabt/wabt-1.0.35/bin"
+export PATH="$PATH:$HOME/.rar"
+export PATH="$PATH:$HOME/.local/bin"
