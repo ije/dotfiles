@@ -59,7 +59,7 @@ require("packer").startup(function(use)
   })
   use("nvim-treesitter/playground")
 
-  -- LSP Support
+  -- LSP
   use("neovim/nvim-lspconfig")
 
   -- Autocompletion
@@ -294,12 +294,13 @@ require("gitsigns").setup({
 })
 
 -- Setup LSP
-local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lsp.zls.setup({capabilities = capabilities})
-lsp.denols.setup({capabilities = capabilities})
-lsp.gopls.setup({capabilities = capabilities})
-lsp.rust_analyzer.setup({capabilities = capabilities})
+vim.lsp.enable("zls")
+vim.lsp.config("zls", {capabilities = capabilities})
+vim.lsp.enable("gopls")
+vim.lsp.config("gopls", {capabilities = capabilities})
+vim.lsp.enable("rust_analyzer")
+vim.lsp.config("rust_analyzer", {capabilities = capabilities})
 
 -- My commands
 vim.api.nvim_create_user_command(
