@@ -9,19 +9,11 @@ alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias publish="npm publish --access public"
-alias b="bun"
-alias i="bun install"
 alias dev="bun dev"
-alias add="git add"
-alias branch="git branch"
-alias checkout="git checkout"
-alias commit="git commit"
 alias main="git checkout main && pull"
 alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
-alias gs="git status"
-alias ca="cursor-agent"
 
 function repos() {
   cd ~/.repos/$1
@@ -51,41 +43,42 @@ function wip() {
 }
 
 # nvim
-export PATH="$PATH:$HOME/.nvim/bin"
+export PATH="$HOME/.nvim/bin:$PATH"
 
 # golang
 export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$GOPATH/bin:$PATH"
 
 # zig
-export ZIG_VERSION="0.11.0"
+export ZIG_VERSION="0.15.2"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
-export PATH="$PATH:$ZIG_INSTALL"
+export PATH="$ZIG_INSTALL:$PATH"
 
 # node
 export NODE_VERSION="24.12.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
-export PATH="$PATH:$NODE_INSTALL/bin"
+export PATH="$NODE_INSTALL/bin:$PATH"
 
 # deno
 export DENO_INSTALL="$HOME/.deno"
-export PATH="$PATH:$DENO_INSTALL/bin"
+export PATH="$DENO_INSTALL/bin:$PATH"
 
 # dprint
 export DPRINT_INSTALL="$HOME/.dprint"
-export PATH="$PATH:$DPRINT_INSTALL/bin"
+export PATH="$DPRINT_INSTALL/bin:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$PATH:$BUN_INSTALL/bin"
+export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
 [ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
 
 # other tools
-export PATH="$PATH:$HOME/.fd"
-export PATH="$PATH:$HOME/.ripgrep"
-export PATH="$PATH:$HOME/.gh/gh_2.74.2/bin"
-export PATH="$PATH:$HOME/.binaryen/binaryen_123/bin"
-export PATH="$PATH:$HOME/.wabt/wabt-1.0.35/bin"
-export PATH="$PATH:$HOME/.rar"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.fd:$PATH"
+export PATH="$HOME/.ripgrep:$PATH"
+export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
+export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
+export PATH="$HOME/.rar:$PATH"
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
