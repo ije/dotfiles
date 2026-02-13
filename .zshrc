@@ -1,14 +1,14 @@
 # ZSH
 ZSH_THEME="x"
 plugins=(git)
-export ZSH="/Users/x/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # aliases
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
-alias publish="npm publish --access public"
+alias publish="npm login &&  npm publish --access public"
 alias dev="bun dev"
 alias main="git checkout main && pull"
 alias merge="git merge"
@@ -74,9 +74,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
 
 # other tools
+export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
 export PATH="$HOME/.fd:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
-export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
 
