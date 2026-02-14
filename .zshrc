@@ -8,7 +8,7 @@ source $ZSH/oh-my-zsh.sh
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
-alias publish="npm login &&  npm publish --access public"
+alias publish="npm login && npm publish --access public"
 alias dev="bun dev"
 alias main="git checkout main && pull"
 alias merge="git merge"
@@ -17,6 +17,11 @@ alias push="git push"
 
 function repos() {
   cd ~/.repos/$1
+}
+
+function deploy-esmd() {
+  cd ~/.repos/esm-dev/esm.sh
+  ./deploy.sh d.esm.sh
 }
 
 function wip() {
@@ -73,12 +78,12 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
 [ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
 
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
 # other tools
 export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
 export PATH="$HOME/.fd:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
-
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
