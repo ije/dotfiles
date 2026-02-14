@@ -8,6 +8,7 @@ source $ZSH/oh-my-zsh.sh
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
+alias sshrc="nvim ~/.ssh/config"
 alias publish="npm login && npm publish --access public"
 alias dev="bun dev"
 alias main="git checkout main && pull"
@@ -21,7 +22,7 @@ function repos() {
 
 function deploy-esmd() {
   cd ~/.repos/esm-dev/esm.sh
-  ./deploy.sh d.esm.sh
+  ./scripts/deploy.sh d.esm.sh
 }
 
 function wip() {
