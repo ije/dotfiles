@@ -9,7 +9,6 @@ alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias sshrc="nvim ~/.ssh/config"
-alias publish="npm login && npm publish --access public"
 alias dev="bun dev"
 alias main="git checkout main && pull"
 alias merge="git merge"
@@ -18,6 +17,22 @@ alias push="git push"
 
 function repos() {
   cd ~/.repos/$1
+}
+
+function publish() {
+  npm publish --access public
+  if [ $? -ne 0 ]; then
+    echo -n "Login to npm and try again? (y/N) "
+    read answer
+    if [ "$answer" != "y" ]; then
+      return 1
+    fi
+    npm login
+    if [ $? -ne 0 ]; then
+      return 1
+    fi
+    npm publish --access public
+  fi
 }
 
 function deploy-esmd() {
