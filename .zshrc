@@ -76,7 +76,7 @@ export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_VERSION="24.13.1"
+export NODE_VERSION="24.14.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
