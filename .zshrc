@@ -20,11 +20,6 @@ function repos() {
   cd ~/.repos/$1
 }
 
-function deploy-esmd() {
-  cd ~/.repos/esm-dev/esm.sh
-  ./scripts/deploy.sh d.esm.sh
-}
-
 function wip() {
   if [ -z "$1" ]; then
     if [ -z "$WIP_BRANCH" ]; then
@@ -88,3 +83,4 @@ export PATH="$HOME/.fd:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
