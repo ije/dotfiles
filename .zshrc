@@ -51,7 +51,7 @@ export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
 # zig
-export ZIG_VERSION="0.15.2"
+export ZIG_VERSION="0.16.0"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
