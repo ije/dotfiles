@@ -77,11 +77,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
+# cmake
+export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+
 # other tools
 export PATH="$HOME/.gh/gh_2.74.2/bin:$PATH"
+export PATH="$HOME/.git-lfs/git-lfs-3.7.1:$PATH"
 export PATH="$HOME/.fd:$PATH"
 export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/Applications/CMake.app/Contents/bin:$PATH"
