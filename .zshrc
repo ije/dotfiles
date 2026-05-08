@@ -15,6 +15,7 @@ alias main="git checkout main && pull"
 alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
+alias oc="opencode"
 
 function repos() {
   cd ~/.repos/$1
