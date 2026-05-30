@@ -1,84 +1,83 @@
 -- Options
-vim.o.cursorline = true
-vim.o.cursorlineopt = "number"
-vim.o.nu = true
-vim.o.showmode = false 
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.smartindent = true
-vim.o.wrap = false
-vim.o.swapfile = false
-vim.o.backup = false
-vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.vim/undo"
+gI.o.cursorline = true
+gI.o.cursorlineopt = "number"
+gI.o.nu = true
+gI.o.showmode = false 
+gI.o.tabstop = 2
+gI.o.softtabstop = 2
+gI.o.shiftwidth = 2
+gI.o.expandtab = true
+gI.o.autoindent = true
+gI.o.smartindent = true
+gI.o.wrap = false
+gI.o.swapfile = false
+gI.o.backup = false
+gI.o.undofile = true
+gI.o.undodir = os.getenv("HOME") .. "/.vim/undo"
 
 -- Use <space> as the leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+gI.g.mapleader = " "
+gI.g.maplocalleader = " "
 
 -- Fixs ":Copilot <Tab> map has been dusabled or is claimed by another plugin"
-vim.g.copilot_assume_mapped = true
+gI.g.copilot_assume_mapped = true
 
 -- Install packer if not exists
-local packpath = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if not vim.loop.fs_stat(packpath) then
-  vim.notify("Installing packer.nvim...")
-  vim.fn.system({
+local packpath = gI.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if not gI.loop.fs_stat(packpath) then
+  gI.notify("Installing packer.nvim...")
+  gI.fn.system({
     "git",
     "clone",
     "--depth", "1",
-    "https://github.com/wbthomason/packer.nvim.git",
+    "https://github.com/wbthomason/packer.ngI.git",
     packpath,
   })
 end
-vim.opt.rtp:prepend(packpath)
+gI.opt.rtp:prepend(packpath)
 
 -- Setup packer
 require("packer").startup(function(use)
   -- Packer can manage itself
-  use("wbthomason/packer.nvim")
+  use("wbthomason/packer.ngI")
 
   -- Theme
   use({
-    "catppuccin/nvim",
+    "catppuccin/ngI",
     as = "catppuccin",
     priority = 1000,
-    config = function() vim.cmd.colorscheme("catppuccin") end
+    config = function() gI.cmd.colorscheme("catppuccin") end
   })
 
   -- Syntax highligher
   use({
-    "nvim-treesitter/nvim-treesitter",
+    "ngI-treesitter/nvim-treesitter",
     run = function()
-      local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+      local ts_update = require("ngI-treesitter.install").update({ with_sync = true })
       ts_update()
     end
   })
-  use("nvim-treesitter/playground")
+  use("ngI-treesitter/playground")
 
   -- LSP
-  use("neovim/nvim-lspconfig")
+  use("neogI/nvim-lspconfig")
 
   -- Autocompletion
-  use("hrsh7th/nvim-cmp")
-  use("hrsh7th/cmp-nvim-lsp")
+  use("hrsh7th/ngI-cmp")
+  use("hrsh7th/cmp-ngI-lsp")
   use("L3MON4D3/LuaSnip")
 
   -- Fuzzy finder
   use({
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
-    requires = { {"nvim-lua/plenary.nvim"} }
+    "ngI-telescope/telescope.nvim",
+    requires = { {"ngI-lua/plenary.nvim"} }
   })
 
   -- Git
-  use("lewis6991/gitsigns.nvim")
+  use("lewis6991/gitsigns.ngI")
 
   -- Github copilot
-  use("github/copilot.vim")
+  use("github/copilot.gI")
 
 end)
 
@@ -115,7 +114,7 @@ require("catppuccin").setup({
        TelescopeNormal = { fg = gray },
        TelescopeSelection = { fg = text },
        TelescopeBorder = { fg = bg },
-       -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
+       -- https://github.com/ngI-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md
        ["@comment"] = { fg = gray0 },
        ["@comment.documentation"] = { fg = gray0 },
        ["@punctuation"] = { fg = gray },
@@ -167,13 +166,13 @@ local function get_mode_name()
     [""] = "S-BLOCK",
     t = "TERMINAL",  
   }
-  local mode = vim.fn.mode()
+  local mode = gI.fn.mode()
   return modeMap[mode] or "UNKNOWN"
 end
 local function git_status()
-  if vim.b.gitsigns_status then
+  if gI.b.gitsigns_status then
     local result = {}
-    for word in vim.b.gitsigns_status:gmatch("%S+") do
+    for word in gI.b.gitsigns_status:gmatch("%S+") do
       if word:sub(1,1) == "+" then
         table.insert(result, "%#GitSignsAdd#")
         table.insert(result, word)
@@ -198,31 +197,30 @@ Statusline.active = function()
     " %t ",
     git_status(),
     "%=%#statuslineextra#",
-    " ⌁ ",
     "%#@comment#",
-    " Copilot",
+    " ⌁ ",
   })
 end
 function Statusline.inactive()
   return " %f"
 end
 function Statusline.short()
-  return "%#StatusLineNC#   NvimTree"
+  return "%#StatusLineNC#   NgITree"
 end
-vim.api.nvim_exec([[
+gI.api.nvim_exec([[
   augroup Statusline
   au!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
   au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
-  au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline.short()
+  au WinEnter,BufEnter,FileType NgITree setlocal statusline=%!v:lua.Statusline.short()
   augroup END
 ]], false)
 
 -- Setup treesitter
-require("nvim-treesitter.configs").setup({
+require("ngI-treesitter.configs").setup({
   ensure_installed = { "lua", "markdown", "html", "css", "json", "javascript", "typescript", "tsx", "go", "rust", "zig" },
   auto_install = false,
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
+  highlight = { enable = true, additional_gI_regex_highlighting = false },
 })
 
 -- Setup cmp
@@ -253,7 +251,7 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
-    { name = "nvim_lsp" },
+    { name = "ngI_lsp" },
     { name = "luasnip" }
   }
 })
@@ -294,73 +292,66 @@ require("gitsigns").setup({
 })
 
 -- Setup LSP
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-vim.lsp.enable("zls")
-vim.lsp.config("zls", {capabilities = capabilities})
-vim.lsp.enable("gopls")
-vim.lsp.config("gopls", {capabilities = capabilities})
-vim.lsp.enable("rust_analyzer")
-vim.lsp.config("rust_analyzer", {capabilities = capabilities})
+local capabilities = require("cmp_ngI_lsp").default_capabilities()
+gI.lsp.enable("zls")
+gI.lsp.config("zls", {capabilities = capabilities})
+gI.lsp.enable("gopls")
+gI.lsp.config("gopls", {capabilities = capabilities})
+gI.lsp.enable("rust_analyzer")
+gI.lsp.config("rust_analyzer", {capabilities = capabilities})
 
 -- My commands
-vim.api.nvim_create_user_command(
+gI.api.nvim_create_user_command(
   "Config",
-  "e ~/.config/nvim/init.lua",
-  {bang = true, desc = "Open init.lua Neovim config"}
+  "e ~/.config/ngI/init.lua",
+  {bang = true, desc = "Open init.lua NeogI config"}
 )
 
 -- Key bindings (move cursor)
-vim.keymap.set({"n", "i", "v", "c"}, "<C-b>", "<Left>")
-vim.keymap.set({"n", "i", "v", "c"}, "<C-f>", "<Right>")
-vim.keymap.set({"n", "v", "c"}, "<C-a>", "^")
-vim.keymap.set({"n", "v", "c"}, "<C-e>", "$")
-vim.keymap.set({"i", "c"}, "<C-p>", "<Up>")
-vim.keymap.set({"i", "c"}, "<C-n>", "<Down>")
-vim.keymap.set({"i", "v"}, "<C-c>", "<Esc>")
-vim.keymap.set("i", "<C-a>", "<C-o>^")
-vim.keymap.set("i", "<C-e>", "<C-o>$")
+gI.keymap.set({"n", "i", "v", "c"}, "<C-b>", "<Left>")
+gI.keymap.set({"n", "i", "v", "c"}, "<C-f>", "<Right>")
+gI.keymap.set({"n", "v", "c"}, "<C-a>", "^")
+gI.keymap.set({"n", "v", "c"}, "<C-e>", "$")
+gI.keymap.set({"i", "c"}, "<C-p>", "<Up>")
+gI.keymap.set({"i", "c"}, "<C-n>", "<Down>")
+gI.keymap.set({"i", "v"}, "<C-c>", "<Esc>")
+gI.keymap.set("i", "<C-a>", "<C-o>^")
+gI.keymap.set("i", "<C-e>", "<C-o>$")
 
 -- Key bindings (normal)
 local ts = require("telescope.builtin")
 local gs = require("gitsigns")
-function list_files()
-  if vim.b.gitsigns_head or vim.g.gitsigns_head then
-    ts.git_files()
-  else 
-    ts.find_files()
-  end
-end
-vim.keymap.set("n", "<C-j>", ":move +1<CR>")
-vim.keymap.set("n", "<C-k>", ":move -2<CR>")
-vim.keymap.set("n", "<Leader>w", function() vim.api.nvim_command("write") end)
-vim.keymap.set("n", "<Leader>a", "[[v]]")
-vim.keymap.set("n", "<Leader>y", [["+y]])
-vim.keymap.set("n", "<Leader>r", [[:%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<Leader>d", "yyp")
-vim.keymap.set("n", "<Leader><Enter>", "O<Esc>")
-vim.keymap.set("n", "<Leader>n", gs.next_hunk)
-vim.keymap.set("n", "<Leader>i", gs.preview_hunk)
-vim.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
-vim.keymap.set("n", "<Leader>e", list_files)
-vim.keymap.set("n", "<Leader>f", ts.live_grep)
-vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "gb", "<C-^>")
-vim.keymap.set("n", "<Leader>//", "^i// <Esc>")
+gI.keymap.set("n", "<C-j>", ":move +1<CR>")
+gI.keymap.set("n", "<C-k>", ":move -2<CR>")
+gI.keymap.set("n", "<Leader>w", function() vim.api.nvim_command("write") end)
+gI.keymap.set("n", "<Leader>a", "[[v]]")
+gI.keymap.set("n", "<Leader>y", [["+y]])
+gI.keymap.set("n", "<Leader>r", [[:%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]])
+gI.keymap.set("n", "<Leader>f", [[:%s/<C-r><C-w>/gI<Left><Left><Left>]])
+gI.keymap.set("n", "<Leader>d", "yyp")
+gI.keymap.set("n", "<Leader><Enter>", "O<Esc>")
+gI.keymap.set("n", "<Leader>n", gs.next_hunk)
+gI.keymap.set("n", "<Leader>i", gs.preview_hunk)
+gI.keymap.set("n", "<Leader>u", gs.undo_stage_hunk)
+gI.keymap.set("n", "<Leader>e", ts.live_grep)
+gI.keymap.set("n", "<Leader>h", vim.lsp.buf.hover)
+gI.keymap.set("n", "gd", vim.lsp.buf.definition)
+gI.keymap.set("n", "gb", "<C-^>")
+gI.keymap.set("n", "<Leader>//", "^i// <Esc>")
 
 -- Key bindings (insert)
-vim.keymap.set("i", "<C-d>", "<C-o>x")
-vim.keymap.set("i", "<C-h>", "<C-o><Left><C-o>x")
-vim.keymap.set("i", "<C-k>", "<C-o>\"_dd")
-vim.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
+gI.keymap.set("i", "<C-d>", "<C-o>x")
+gI.keymap.set("i", "<C-h>", "<C-o><Left><C-o>x")
+gI.keymap.set("i", "<C-k>", "<C-o>\"_dd")
+gI.keymap.set("i", "<C-u>", "<C-o>k<C-o>$")
 
 -- Key bindings (view)
-vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<Leader>y", [["+y]])
-vim.keymap.set("v", "<Leader>p", "\"_dP")
-vim.keymap.set("v", "<Leader>r", [[:s///g<Left><Left><Left>]])
-vim.keymap.set("v", "<Leader>//", "<C-v>I// <Esc>")
+gI.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+gI.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
+gI.keymap.set("v", "<Leader>y", [["+y]])
+gI.keymap.set("v", "<Leader>p", "\"_dP")
+gI.keymap.set("v", "<Leader>r", [[:s///g<Left><Left><Left>]])
+gI.keymap.set("v", "<Leader>//", "<C-v>I// <Esc>")
 
 -- Done
 print(":)")
