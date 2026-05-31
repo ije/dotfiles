@@ -10,7 +10,6 @@ alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias sshrc="nvim ~/.ssh/config"
 alias dev="bun dev"
-alias fmt="bun format"
 alias publish="npm publish --access public"
 alias checkout="git checkout"
 alias main="git checkout main && pull"
@@ -18,7 +17,6 @@ alias merge="git merge"
 alias rebase="git rebase"
 alias pull="git pull"
 alias push="git push"
-alias oc="opencode"
 
 function repos() {
   cd ~/.repos/$1
@@ -48,7 +46,7 @@ function wip() {
 }
 
 # nvim
-export PATH="$HOME/.nvim/bin:$PATH"
+export PATH="$HOME/.nvim/nvim-0.12.2/bin:$PATH"
 
 # golang
 export GOPATH="$HOME/.go"
@@ -58,6 +56,9 @@ export PATH="$GOPATH/bin:$PATH"
 export ZIG_VERSION="0.16.0"
 export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
+
+# moonbit
+export PATH="$HOME/.moon/bin:$PATH"
 
 # node
 export NODE_VERSION="24.15.0"
@@ -92,9 +93,3 @@ export PATH="$HOME/.ripgrep:$PATH"
 export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-
-function setup_emsdk() {
-  export PATH="$HOME/.emsdk/bin:$PATH"
-  export PATH="$HOME/.emsdk/emscripten:$PATH"
-  export PATH="$HOME/.emsdk/python/3.13.3_64bit/bin:$PATH"
-}
