@@ -5,17 +5,16 @@ export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # aliases
+alias air="ssh air"
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
-alias sshrc="nvim ~/.ssh/config"
-alias dev="bun dev"
 alias publish="npm publish --access public"
-alias checkout="git checkout"
-alias wip="git checkout"
+alias dev="bun dev"
 alias main="git checkout main && pull"
-alias merge="git merge"
+alias wip="git checkout"
 alias rebase="git rebase"
+alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
 
@@ -56,7 +55,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # proto
 export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+export PATH="$PROTO_HOME/bin:$PATH";
+
+function use_proto() {
+  export PATH="$PROTO_HOME/shims:$PATH"
+}
 
 # other tools
 export PATH="$HOME/.local/bin:$PATH"
