@@ -23,6 +23,10 @@ function repos() {
   cd ~/.repos/$1
 }
 
+# proto
+export PROTO_HOME="$HOME/.proto";
+export PATH="$PROTO_HOME/bin:$PATH";
+
 # nvim
 export PATH="$HOME/.nvim/nvim-0.12.2/bin:$PATH"
 
@@ -53,10 +57,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
 [ -s "/Users/x/.bun/_bun" ] && source "/Users/x/.bun/_bun"
-
-# proto
-export PROTO_HOME="$HOME/.proto";
-export PATH="$PROTO_HOME/bin:$PATH";
 
 # other tools
 export PATH="$HOME/.local/bin:$PATH"
