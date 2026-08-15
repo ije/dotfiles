@@ -12,11 +12,12 @@ alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias publish="npm publish --access public"
 alias dev="bun dev"
 alias main="git checkout main && pull"
-alias wip="git checkout"
+alias co="git checkout"
 alias rebase="git rebase"
 alias merge="git merge"
 alias pull="git pull"
 alias push="git push"
+alias cc="claude"
 
 function repos() {
   cd ~/.repos/$1
@@ -35,7 +36,7 @@ export ZIG_INSTALL="$HOME/.zig/zig-$ZIG_VERSION"
 export PATH="$ZIG_INSTALL:$PATH"
 
 # node
-export NODE_VERSION="24.15.0"
+export NODE_VERSION="24.19.0"
 export NODE_INSTALL="$HOME/.node/node-$NODE_VERSION"
 export PATH="$NODE_INSTALL/bin:$PATH"
 
@@ -56,10 +57,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # proto
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/bin:$PATH";
-
-function use_proto() {
-  export PATH="$PROTO_HOME/shims:$PATH"
-}
 
 # other tools
 export PATH="$HOME/.local/bin:$PATH"
