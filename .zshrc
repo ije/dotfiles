@@ -5,9 +5,9 @@ export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # aliases
-alias air="ssh air"
 alias dl="cd ~/Downloads"
 alias zshrc="nvim ~/.zshrc"
+alias vi="nvim"
 alias nvimrc="nvim ~/.config/nvim/init.lua"
 alias publish="npm publish --access public"
 alias dev="bun dev"
@@ -68,3 +68,4 @@ export PATH="$HOME/.binaryen/binaryen_123/bin:$PATH"
 export PATH="$HOME/.rar:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+ 
